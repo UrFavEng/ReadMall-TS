@@ -7,6 +7,7 @@ import { Pagination } from "@mui/material";
 const Reviews = () => {
   const [page, setPage] = useState(1);
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    console.log(event);
     setPage(value);
   };
 
