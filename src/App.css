@@ -1,42 +1,78 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  font-family: "Rubik", sans-serif;
+}
+.bg-custom-teal {
+  background-color: #115e59; /* rgb(17,94,89) */
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.from-custom-teal {
+  --tw-gradient-from: #115e59; /* rgb(17,94,89) */
 }
 
-@keyframes logo-spin {
+.to-custom-green {
+  --tw-gradient-to: #0d9488; /* rgb(13,148,136) */
+}
+:root {
+  --tw-bg-opacity: 1;
+}
+
+body {
+  background-color: #f1f1f1;
+}
+.cats-navbar {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.parents-cats-navbar:hover .cats-navbar {
+  opacity: 1;
+}
+.par-cat:hover .cat {
+  opacity: 1;
+  display: block;
+}
+.par-cat1:hover .cat1 {
+  opacity: 1;
+  display: block;
+}
+.cat {
+  opacity: 0;
+  display: none;
+  position: absolute;
+  -webkit-animation: pop-up 1s ease forwards;
+  animation: pop-up 1s ease forwards;
+}
+.cat1 {
+  opacity: 0;
+  display: none;
+  position: absolute;
+  -webkit-animation: pop-up 1s ease forwards;
+  animation: pop-up 1s ease forwards;
+}
+@keyframes pop-up {
   from {
-    transform: rotate(0deg);
+    opacity: 0;
+    -o-transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    -moz-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    transform: translateY(-10px);
   }
   to {
-    transform: rotate(360deg);
+    opacity: 1;
+    -o-transform: translateY(0);
+    -webkit-transform: translateY(0);
+    -moz-transform: translateY(0);
+    -ms-transform: translateY(0);
+    transform: translateY(0);
   }
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.parent-cam:hover .cam {
+  display: flex;
 }
-
-.card {
-  padding: 2em;
+.cam {
+  display: none;
 }
-
-.read-the-docs {
-  color: #888;
+::-webkit-scrollbar {
+  width: 0px;
 }
