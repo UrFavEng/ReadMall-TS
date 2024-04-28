@@ -468,3 +468,58 @@ export interface GetReviewByIdRES {
   payload: GetReviewByIdPayload;
 }
 //end Get Review by id
+//start get Author By Id
+interface AuthorById {
+  id: number;
+  authorAvatarUrl: string;
+  authorName: string;
+  bio: string | null;
+  birthDate: string;
+  deathDate: string | null;
+}
+
+export interface GetAuthorByIdBook {
+  id: number;
+  title: string;
+  subTitle: string;
+  desc: string | null;
+  coverUrl: string;
+  pages: number;
+  views: number;
+  lang: string;
+  releaseDate: string;
+  format: string;
+  size: number;
+  copyright: boolean;
+  toBuy: boolean;
+  bookUrl: string;
+  price: number | null;
+  createdAt: string;
+  updatedAt: string;
+  authorId: number;
+  uploaderId: number;
+  publisherId: number;
+  categoryId: number;
+  author: {
+    authorName: string;
+  };
+  publisher: {
+    publisherName: string;
+  };
+  user: {
+    fullname: string;
+  };
+  category: {
+    categoryName: string;
+  };
+}
+
+export interface getAuthorByIdRES {
+  error: boolean;
+  message: string;
+  payload: {
+    author: AuthorById;
+    books: GetAuthorByIdBook[];
+  };
+}
+//end get Author By Id

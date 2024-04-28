@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
-import { RecentlyAndMostBook, SearchBook } from "../../types/types.model";
+import {
+  GetAuthorByIdBook,
+  RecentlyAndMostBook,
+  SearchBook,
+} from "../../types/types.model";
 import { Rating } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 interface BookCardProps {
-  book: RecentlyAndMostBook | SearchBook;
+  book: RecentlyAndMostBook | SearchBook | GetAuthorByIdBook;
   handleChangeBook: () => void;
 }
 const BookCard = ({ book, handleChangeBook }: BookCardProps) => {

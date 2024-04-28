@@ -181,6 +181,7 @@ const MainSec = ({
             )}
           </div>
         </div>
+        <div className="mb-4 bg-white py-2 px-2 border-b-[1px] h-[35px] border-teal-400 rounded-lg shadow-md rounded-t-none  flex items-center justify-start gap-1 text-teal-800"></div>
       </div>
     </>
   );

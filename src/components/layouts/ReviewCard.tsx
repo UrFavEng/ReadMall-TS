@@ -4,6 +4,8 @@ import { MdDelete } from "react-icons/md";
 import { MdEdit } from "react-icons/md";
 import { useState } from "react";
 import { useDeleteReviewMutation } from "../store/apislice";
+import { ThreeDots } from "react-loader-spinner";
+import Swal from "sweetalert2";
 interface ReviewCardProps {
   review: GetAllReviews;
 }
@@ -21,7 +23,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     }
     return "Undefined";
   }
-  const [DeleteReview] = useDeleteReviewMutation();
+  const [DeleteReview, { isLoading: loadingDeleteReview }] =
+    useDeleteReviewMutation();
 
   const HandleEdit = () => {
     setErrEditReview("");
@@ -40,6 +43,8 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
         console.error(rejected.status);
         if (rejected.status == 404) {
           setErrEditReview("U Can't Delete This Review");
+        } else if (rejected.status == 403) {
+          Swal.fire("You must login");
         }
       });
   };
@@ -81,12 +86,25 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
                 <MdEdit />
               </span>
             </span>
-            <span
-              onClick={() => HandleDelete()}
-              className=" cursor-pointer text-[18px] text-gray-900"
-            >
-              <MdDelete />
-            </span>
+            {loadingDeleteReview ? (
+              <ThreeDots
+                visible={true}
+                height="30"
+                width="30"
+                color="#115e59"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            ) : (
+              <span
+                onClick={() => HandleDelete()}
+                className=" cursor-pointer text-[18px] text-gray-900"
+              >
+                <MdDelete />
+              </span>
+            )}
           </p>
           <p className=" font-medium text-teal-600">{errEditReview}</p>
         </div>

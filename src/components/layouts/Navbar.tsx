@@ -98,93 +98,91 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
                 <ul className=" bg-white shadow-md flex flex-col ">
                   {localStorage.getItem("token") ? (
                     <>
-                      <>
-                        {loadingGetMe || !dataMe ? (
-                          <li>
-                            <div className=" flex items-center justify-center">
-                              {" "}
-                              <ThreeDots
-                                visible={true}
-                                height="30"
-                                width="30"
-                                color="#115e59"
-                                radius="9"
-                                ariaLabel="three-dots-loading"
-                                wrapperStyle={{}}
-                                wrapperClass=""
-                              />
+                      {loadingGetMe || !dataMe ? (
+                        <li>
+                          <div className=" flex items-center justify-center">
+                            {" "}
+                            <ThreeDots
+                              visible={true}
+                              height="30"
+                              width="30"
+                              color="#115e59"
+                              radius="9"
+                              ariaLabel="three-dots-loading"
+                              wrapperStyle={{}}
+                              wrapperClass=""
+                            />
+                          </div>
+                        </li>
+                      ) : (
+                        <>
+                          <li
+                            onClick={() => navigate("/profile")}
+                            className="transition h-[80px] flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 py-1 text-teal-800 "
+                          >
+                            <div className="flex gap-2">
+                              <div>
+                                <img
+                                  src={dataMe?.payload.user.avatarUrl}
+                                  alt=""
+                                  className="w-[35px] rounded-full"
+                                />
+                              </div>
+                              <div>
+                                <h3 className=" text-teal-900 text-[12px] font-medium">
+                                  Hi, {dataMe?.payload.user.fullname}
+                                </h3>
+                                <p className=" text-[12px] text-[#626262]">
+                                  Welcome Back
+                                </p>
+                              </div>
+                            </div>
+                            <div className=" text-teal-800 text-[28px]">
+                              <MdKeyboardArrowRight />
                             </div>
                           </li>
-                        ) : (
-                          <>
-                            <li
-                              onClick={() => navigate("/profile")}
-                              className="transition h-[80px] flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 py-1 text-teal-800 "
-                            >
-                              <div className="flex gap-2">
-                                <div>
-                                  <img
-                                    src={dataMe?.payload.user.avatarUrl}
-                                    alt=""
-                                    className="w-[35px] rounded-full"
-                                  />
-                                </div>
-                                <div>
-                                  <h3 className=" text-teal-900 text-[12px] font-medium">
-                                    Hi, {dataMe?.payload.user.fullname}
-                                  </h3>
-                                  <p className=" text-[12px] text-[#626262]">
-                                    Welcome Back
-                                  </p>
-                                </div>
-                              </div>
-                              <div className=" text-teal-800 text-[28px]">
-                                <MdKeyboardArrowRight />
-                              </div>
-                            </li>
-                            <li className="transition  par-cat1 relative  text-gray-900 text-[12px] h-[40px] font-medium flex items-center gap-0 capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
-                              <span className=" text-[12px] text-teal-900">
-                                <IoIosArrowBack />
-                              </span>{" "}
-                              Categories
-                              <div className="cat1 absolute top-[-16px] w-[180px] px-4  left-[-164px] py-8">
-                                <ul className="bg-white shadow-md flex flex-col ">
-                                  {dataCats?.payload.categories.map((cat) => (
-                                    <li
-                                      onClick={() => (
-                                        handleChangeCat(),
-                                        navigate(`/category/${cat.id}`)
-                                      )}
-                                      key={cat.id}
-                                      className="transition capitalize hover:bg-[#f1f1f1] px-2 py-2 text-teal-800 "
-                                    >
-                                      {cat.categoryName}
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
-                            </li>
-                            <li className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
-                              My Favorites
-                            </li>
-                            <li className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
-                              My Cart
-                            </li>
-                            <li
-                              onClick={() => {
-                                localStorage.removeItem("token");
-                                localStorage.removeItem("dataUser");
-                                navigate(`/`);
+                          <li className="transition  par-cat1 relative  text-gray-900 text-[12px] h-[40px] font-medium flex items-center gap-0 capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                            <span className=" text-[12px] text-teal-900">
+                              <IoIosArrowBack />
+                            </span>{" "}
+                            Categories
+                            <div className="cat1 absolute top-[-16px] w-[180px] px-4  left-[-164px] py-8">
+                              <ul className="bg-white shadow-md flex flex-col ">
+                                {dataCats?.payload.categories.map((cat) => (
+                                  <li
+                                    onClick={() => (
+                                      handleChangeCat(),
+                                      navigate(`/category/${cat.id}`)
+                                    )}
+                                    key={cat.id}
+                                    className="transition capitalize hover:bg-[#f1f1f1] px-2 py-2 text-teal-800 "
+                                  >
+                                    {cat.categoryName}
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          </li>
+                          <li className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                            My Favorites
+                          </li>
+                          <li className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                            My Cart
+                          </li>
+                          <li
+                            onClick={() => {
+                              localStorage.removeItem("token");
+                              localStorage.removeItem("dataUser");
+                              navigate(`/`);
 
-                                location.reload();
-                              }}
-                              className="transition text-[13px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 text-teal-800 "
-                            >
-                              Log out
-                            </li>
-                          </>
-                        )}
-                      </>
+                              location.reload();
+                            }}
+                            className="transition text-[13px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 text-teal-800 "
+                          >
+                            Log out
+                          </li>
+                        </>
+                      )}
                     </>
                   ) : (
                     <>

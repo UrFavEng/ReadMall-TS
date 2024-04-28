@@ -24,6 +24,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ReviewREQ } from "../../types/types.model";
 import { IoCartOutline } from "react-icons/io5";
 import Reviews from "../layouts/Reviews";
+import Swal from "sweetalert2";
 interface BookPageProps {
   handleChangeCat: () => void;
   handleChangeSearch: () => void;
@@ -65,11 +66,12 @@ const BookPage = ({
     }
     return "Undefined";
   }
-  const [addReview] = useAddReviewMutation();
-  const [AddFav] = useAddFavMutation();
-  const [AddCart] = useAddCartMutation();
-  const [deleteFav] = useDeleteFavMutation();
-  const [deleteCart] = useDeleteCartMutation();
+  const [addReview, { isLoading: loadingAddReview }] = useAddReviewMutation();
+  const [AddFav, { isLoading: loadingAddFav }] = useAddFavMutation();
+  const [AddCart, { isLoading: loadingAddCart }] = useAddCartMutation();
+  const [deleteFav, { isLoading: loadingDeleteFav }] = useDeleteFavMutation();
+  const [deleteCart, { isLoading: loadingDeleteCart }] =
+    useDeleteCartMutation();
   const {
     handleSubmit,
     register,
@@ -91,6 +93,9 @@ const BookPage = ({
         })
         .catch((rejected) => {
           console.log(rejected);
+          if (rejected.status == 403) {
+            Swal.fire("You must login");
+          }
           // setErrRate(rejected.data.message.details[0].message);
         });
     } else {
@@ -107,7 +112,10 @@ const BookPage = ({
         console.log(fulfilled);
       })
       .catch((rejected) => {
-        console.error(rejected?.data?.message);
+        console.error(rejected);
+        if (rejected.status == 403) {
+          Swal.fire("You must login");
+        }
       });
   };
   const handleDeleteFav = () => {
@@ -118,6 +126,9 @@ const BookPage = ({
       })
       .catch((rejected) => {
         console.error(rejected);
+        if (rejected.status == 403) {
+          Swal.fire("You must login");
+        }
       });
   };
   const handleAddCrt = () => {
@@ -131,6 +142,9 @@ const BookPage = ({
       })
       .catch((rejected) => {
         console.error(rejected);
+        if (rejected.status == 403) {
+          Swal.fire("You must login");
+        }
       });
   };
   const handleDeleteCart = () => {
@@ -141,6 +155,9 @@ const BookPage = ({
       })
       .catch((rejected) => {
         console.error(rejected);
+        if (rejected.status == 403) {
+          Swal.fire("You must login");
+        }
       });
   };
   return (
@@ -163,19 +180,32 @@ const BookPage = ({
         ) : (
           <>
             {" "}
-            <span className=" font-bold text-[18px] sm:font-extrabold text-teal-950 sm:text-[20px]">
+            <span
+              onClick={() => navigate(`/`)}
+              className=" cursor-pointer font-bold text-[18px] sm:font-extrabold text-teal-950 sm:text-[20px]"
+            >
               Main
             </span>
             <span className=" text-gray-900  text-[16px]">
               <MdKeyboardDoubleArrowRight />
             </span>
-            <span className=" font-semibold sm:font-bold text-teal-900 sm:text-[18px]">
+            <span
+              onClick={() =>
+                navigate(`/author/${dataBook?.payload.book.authorId}`)
+              }
+              className=" cursor-pointer font-semibold sm:font-bold text-teal-900 sm:text-[18px]"
+            >
               {dataBook?.payload.book.author.authorName}
             </span>
             <span className=" text-gray-900  text-[15px]">
               <MdKeyboardDoubleArrowRight />
             </span>
-            <span className=" font-medium sm:font-semibold text-teal-800 text-[14px] sm:text-[16px]">
+            <span
+              onClick={() =>
+                navigate(`/category/${dataBook?.payload.book.categoryId}`)
+              }
+              className=" cursor-pointer font-medium sm:font-semibold text-teal-800 text-[14px] sm:text-[16px]"
+            >
               {dataBook?.payload.book.category.categoryName}
             </span>
             <span className=" text-gray-900  text-[14px]">
@@ -288,30 +318,91 @@ const BookPage = ({
                       <>
                         {" "}
                         {dataBook?.payload.book.inCart ? (
-                          <span onClick={() => handleDeleteCart()}>
-                            {" "}
-                            <IoCart />
-                          </span>
+                          <>
+                            {loadingDeleteCart ? (
+                              <ThreeDots
+                                visible={true}
+                                height="30"
+                                width="30"
+                                color="#115e59"
+                                radius="9"
+                                ariaLabel="three-dots-loading"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                              />
+                            ) : (
+                              <span onClick={() => handleDeleteCart()}>
+                                {" "}
+                                <IoCart />
+                              </span>
+                            )}
+                          </>
                         ) : (
-                          <span onClick={() => handleAddCrt()}>
-                            {" "}
-                            <IoCartOutline />
-                          </span>
+                          <>
+                            {loadingAddCart ? (
+                              <ThreeDots
+                                visible={true}
+                                height="30"
+                                width="30"
+                                color="#115e59"
+                                radius="9"
+                                ariaLabel="three-dots-loading"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                              />
+                            ) : (
+                              <span onClick={() => handleAddCrt()}>
+                                {" "}
+                                <IoCartOutline />
+                              </span>
+                            )}
+                          </>
                         )}
                       </>
                     )}
                   </div>
                   <div className=" text-[34px] text-teal-800  cursor-pointer">
                     {dataBook?.payload.book.isFav ? (
-                      <span onClick={() => handleDeleteFav()}>
-                        {" "}
-                        <MdFavorite />
-                      </span>
+                      <>
+                        {loadingDeleteFav ? (
+                          <ThreeDots
+                            visible={true}
+                            height="30"
+                            width="30"
+                            color="#115e59"
+                            radius="9"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                          />
+                        ) : (
+                          <span onClick={() => handleDeleteFav()}>
+                            {" "}
+                            <MdFavorite />
+                          </span>
+                        )}
+                      </>
                     ) : (
-                      <span onClick={() => handleAddFav()}>
-                        {" "}
-                        <MdOutlineFavoriteBorder />
-                      </span>
+                      <>
+                        {loadingAddFav ? (
+                          <ThreeDots
+                            visible={true}
+                            height="30"
+                            width="30"
+                            color="#115e59"
+                            radius="9"
+                            ariaLabel="three-dots-loading"
+                            wrapperStyle={{}}
+                            wrapperClass=""
+                          />
+                        ) : (
+                          <>
+                            <span onClick={() => handleAddFav()}>
+                              <MdOutlineFavoriteBorder />
+                            </span>
+                          </>
+                        )}
+                      </>
                     )}
                   </div>
                 </div>
@@ -342,14 +433,28 @@ const BookPage = ({
                       </li>
                       <li className=" flex items-center justify-between sm:justify-start my-2">
                         <span className=" text-[16px] w-[120px]">Author</span> :
-                        <span className=" text-[18px] font-medium cursor-pointer text-teal-600 underline">
+                        <span
+                          onClick={() =>
+                            navigate(
+                              `/author/${dataBook?.payload.book.authorId}`
+                            )
+                          }
+                          className=" text-[18px] font-medium cursor-pointer text-teal-600 underline"
+                        >
                           {dataBook?.payload.book.author.authorName}
                         </span>
                       </li>
                       <li className=" flex items-center justify-between sm:justify-start my-2">
                         <span className=" text-[16px] w-[120px]">Category</span>{" "}
                         :
-                        <span className=" text-[18px] font-medium cursor-pointer text-teal-600 underline">
+                        <span
+                          onClick={() =>
+                            navigate(
+                              `/category/${dataBook?.payload.book.categoryId}`
+                            )
+                          }
+                          className=" text-[18px] font-medium cursor-pointer text-teal-600 underline"
+                        >
                           {dataBook?.payload.book.category.categoryName}
                         </span>
                       </li>
@@ -451,11 +556,24 @@ const BookPage = ({
                     {errors.comment?.message}
                   </p>
                   <p className=" font-medium text-teal-700 mb-3">{errRate}</p>
-                  <input
-                    type="submit"
-                    value="Add"
-                    className=" py-1 cursor-pointer px-3 text-[20px] font-medium bg-teal-800 hover:bg-teal-700 transition text-white hover:text-black rounded-md"
-                  />
+                  {loadingAddReview ? (
+                    <ThreeDots
+                      visible={true}
+                      height="50"
+                      width="50"
+                      color="#115e59"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  ) : (
+                    <input
+                      type="submit"
+                      value="Add"
+                      className=" py-1 cursor-pointer px-3 text-[20px] font-medium bg-teal-800 hover:bg-teal-700 transition text-white hover:text-black rounded-md"
+                    />
+                  )}
                 </form>
               </>
             )}

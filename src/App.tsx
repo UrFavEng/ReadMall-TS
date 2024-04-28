@@ -14,6 +14,7 @@ import {
   SearchAuthor,
   SearchBook,
   BookPage,
+  AuthorPage,
 } from "./components/index";
 import { useState } from "react";
 function App() {
@@ -119,6 +120,16 @@ function App() {
               loadingChangeBook={loadingChangeBook}
               handleChangeCat={handleChangeCat}
               handleChangeSearch={handleChangeSearch}
+            />
+          }
+        />
+        <Route
+          path="/author/:id"
+          element={
+            <AuthorPage
+              handleClick={handleClick}
+              handleChangeBook={handleChangeBook}
+              handleChangeCat={handleChangeCat}
             />
           }
         />

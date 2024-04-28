@@ -17,6 +17,7 @@ import {
   SignUpReq,
   SignUpRes,
   editProfileRES,
+  getAuthorByIdRES,
   getBookByCatRES,
   getmeRES,
 } from "../../types/types.model";
@@ -136,6 +137,9 @@ export const apiSlice = createApi({
       }),
       invalidatesTags: ["dataReview"],
     }),
+    getAuthorBuId: builder.query<getAuthorByIdRES, undefined | string>({
+      query: (id) => `/authors/getAuthorById/${id}`,
+    }),
   }),
 });
 
@@ -160,4 +164,5 @@ export const {
   useDeleteCartMutation,
   useGetAllReviewsQuery,
   useDeleteReviewMutation,
+  useGetAuthorBuIdQuery,
 } = apiSlice;
