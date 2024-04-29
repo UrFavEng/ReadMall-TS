@@ -27,6 +27,7 @@ const SignUp = () => {
           localStorage.setItem("token", `${fulfilled?.payload?.token}`);
           localStorage.setItem("dataUser", `${fulfilled?.payload?.user?.id}`);
           navigate("/");
+          location.reload();
         })
         .catch((rejected) => {
           console.error(rejected);

@@ -3,9 +3,15 @@ interface AuthorCardProps {
 }
 import { Rating } from "@mui/material";
 import ImageAuthor from "../../assets/92646979.png";
+// import { useNavigate } from "react-router-dom";
 const AuthorCard = ({ author }: AuthorCardProps) => {
+  // const navigate = useNavigate();
+
   return (
-    <div className=" px-1 cursor-pointer gap-1 py-2 flex flex-col items-center justify-between bg-white shadow-sm hover:shadow-lg hover:scale-[1.04] hover:border-[1px] hover:border-teal-200  transition border-2 rounded-md">
+    <div
+      // onClick={() => navigate(`/author/${author}`)}
+      className=" px-1 cursor-pointer gap-1 py-2 flex flex-col items-center justify-between bg-white shadow-sm hover:shadow-lg hover:scale-[1.04] hover:border-[1px] hover:border-teal-200  transition border-2 rounded-md"
+    >
       {" "}
       <div className="">
         <img

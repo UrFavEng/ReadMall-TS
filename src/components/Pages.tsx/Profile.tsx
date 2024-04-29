@@ -118,7 +118,7 @@ const Profile = () => {
                       </div>
                     </div>
                     <div className=" mt-12 flex flex-col sm:flex-row justify-between items-center gap-2">
-                      <div className=" w-full sm:w-[48%]  flex items-center gap-2">
+                      <div className=" w-full sm:w-[48%] flex-col  flex gap-2">
                         <label
                           className=" text-teal-800 font-medium "
                           htmlFor="name"
@@ -135,7 +135,7 @@ const Profile = () => {
                           className=" w-[100%] h-[35px] pl-2 rounded-lg shadow-sm focus:shadow-lg  border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium  focus:outline-0"
                         />
                       </div>
-                      <div className="w-full sm:w-[48%] flex items-center gap-2">
+                      <div className="w-full sm:w-[48%] flex flex-col gap-2">
                         <label
                           className=" text-teal-800 font-medium "
                           htmlFor="email"
@@ -153,8 +153,8 @@ const Profile = () => {
                         />
                       </div>
                     </div>
-                    <div className=" mt-6 flex flex-col sm:flex-row justify-between items-center gap-2">
-                      <div className=" w-full sm:w-[48%]  flex items-center gap-2">
+                    <div className=" mt-6 flex flex-col sm:flex-row justify-between items-end gap-2">
+                      <div className=" w-full sm:w-[48%]  flex flex-col gap-2">
                         <label
                           className=" text-teal-800 font-medium "
                           htmlFor="phoneNum"
@@ -169,15 +169,23 @@ const Profile = () => {
                           className=" w-[100%] h-[35px] pl-2 rounded-lg shadow-sm focus:shadow-lg  border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium  focus:outline-0"
                         />
                       </div>
-                      <select
-                        {...register("gender")}
-                        id="gender"
-                        className="w-full sm:w-[48%] h-[35px] pl-2 rounded-lg shadow-sm focus:shadow-lg  border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium  focus:outline-0"
-                      >
-                        <option value="">Gender</option>
-                        <option value="male">Male</option>
-                        <option value="female">Female</option>
-                      </select>
+                      <div className=" w-full sm:w-[48%]  flex flex-col gap-2">
+                        <label
+                          className=" text-teal-800 font-medium "
+                          htmlFor="gender"
+                        >
+                          Gender
+                        </label>
+                        <select
+                          {...register("gender")}
+                          id="gender"
+                          className=" w-full h-[35px] pl-2 rounded-lg shadow-sm focus:shadow-lg  border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium  focus:outline-0"
+                        >
+                          <option value="">Gender</option>
+                          <option value="male">Male</option>
+                          <option value="female">Female</option>
+                        </select>
+                      </div>
                     </div>
                   </div>
                   <input

@@ -227,22 +227,21 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
             </div>
             {localStorage.getItem("token") ? (
               <>
-                {loadingGetMe ||
-                  (!dataMe ? (
-                    ""
-                  ) : (
-                    <div className=" hidden sm:flex items-center justify-center gap-1">
-                      <div className="hidden md:block text-[34px] text-teal-800 cursor-pointer">
-                        <IoCartOutline />
-                      </div>
-                      <div className=" text-[34px] text-teal-800  cursor-pointer">
-                        <MdOutlineFavoriteBorder />
-                      </div>
+                {loadingGetMe ? (
+                  ""
+                ) : (
+                  <div className=" hidden sm:flex items-center justify-center gap-1">
+                    <div className="hidden md:block text-[34px] text-teal-800 cursor-pointer">
+                      <IoCartOutline />
                     </div>
-                  ))}
+                    <div className=" text-[34px] text-teal-800  cursor-pointer">
+                      <MdOutlineFavoriteBorder />
+                    </div>
+                  </div>
+                )}
 
                 <div className="par-cat  relative transition hidden sm:flex  items-center justify-center text-gray-300 hover:text-white hover:bg-teal-600 bg-teal-800 py-1 rounded-md gap-2 cursor-pointer px-2">
-                  {loadingGetMe || !dataMe ? (
+                  {loadingGetMe ? (
                     <div className=" flex items-center justify-center">
                       {" "}
                       <ThreeDots

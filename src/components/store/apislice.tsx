@@ -52,9 +52,11 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: ["dataUser"],
     }),
     signin: builder.mutation<LoginRes, LoginReq>({
       query: (body) => ({ url: "/users/login", method: "POST", body }),
+      invalidatesTags: ["dataUser"],
     }),
     getMe: builder.query<getmeRES, void>({
       query: () => `/users/me`,
