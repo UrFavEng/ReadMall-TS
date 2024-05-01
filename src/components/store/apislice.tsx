@@ -10,6 +10,7 @@ import {
   GetBookByIdRES,
   LoginReq,
   LoginRes,
+  PublisherByIdResponse,
   RecentlyAndMostRes,
   ReviewREQ,
   SearchAuthorsRES,
@@ -142,6 +143,9 @@ export const apiSlice = createApi({
     getAuthorBuId: builder.query<getAuthorByIdRES, undefined | string>({
       query: (id) => `/authors/getAuthorById/${id}`,
     }),
+    getPublisherById: builder.query<PublisherByIdResponse, string | undefined>({
+      query: (id) => `/publishers/getPublisherById/${id}`,
+    }),
   }),
 });
 
@@ -167,4 +171,5 @@ export const {
   useGetAllReviewsQuery,
   useDeleteReviewMutation,
   useGetAuthorBuIdQuery,
+  useGetPublisherByIdQuery,
 } = apiSlice;

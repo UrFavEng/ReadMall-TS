@@ -463,7 +463,14 @@ const BookPage = ({
                           Publisher
                         </span>{" "}
                         :
-                        <span className=" text-[18px] font-medium cursor-pointer text-teal-600 underline">
+                        <span
+                          onClick={() =>
+                            navigate(
+                              `/publisher/${dataBook?.payload.book.publisherId}`
+                            )
+                          }
+                          className=" text-[18px] font-medium cursor-pointer text-teal-600 underline"
+                        >
                           {dataBook?.payload.book.publisher.publisherName}
                         </span>
                       </li>

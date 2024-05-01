@@ -18,6 +18,7 @@ import BookPage from "./Pages.tsx/BookPage";
 import ReviewCard from "./layouts/ReviewCard";
 import Reviews from "./layouts/Reviews";
 import AuthorPage from "./Pages.tsx/AuthorPage";
+import Publisher from "./Pages.tsx/Publisher";
 export {
   Navbar,
   AuthorCard,
@@ -39,4 +40,5 @@ export {
   ReviewCard,
   Reviews,
   AuthorPage,
+  Publisher,
 };

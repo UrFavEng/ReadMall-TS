@@ -39,14 +39,14 @@ const BooksByCat = ({
   ];
   return (
     <div className=" container m-auto px-4 pt-[71px]">
-      <h1 className=" text-teal-800 font-semibold text-[28px] mt-3">
+      <h1 className=" bg-white text-[22px] font-semibold flex-wrap py-2 px-2 border-t-[1px] border-teal-400 rounded-lg shadow-md rounded-b-none  flex items-center justify-start gap-1 text-teal-800  mt-5">
         {loadingChangeCatState || loadingCatId ? (
           <div className=" flex items-center">
             {" "}
             <ThreeDots
               visible={true}
-              height="80"
-              width="80"
+              height="35"
+              width="35"
               color="#115e59"
               radius="9"
               ariaLabel="three-dots-loading"

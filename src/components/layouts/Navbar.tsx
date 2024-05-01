@@ -94,7 +94,7 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
           <div className=" flex items-center justify-center gap-2">
             <div className="par-cat  relative text-[28px] sm:hidden  text-teal-800 cursor-pointer">
               <FaBars />
-              <div className="cat absolute top-[18px] w-[225px] lg:w-[300px] px-4 left-[-160px]  md:left-[-135px] lg:left-[-155px] py-8">
+              <div className="cat absolute top-[18px] w-[225px] lg:w-[300px] pr-4 left-[-160px]  md:left-[-135px] lg:left-[-155px] pt-8">
                 <ul className=" bg-white shadow-md flex flex-col ">
                   {localStorage.getItem("token") ? (
                     <>
@@ -146,7 +146,7 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
                               <IoIosArrowBack />
                             </span>{" "}
                             Categories
-                            <div className="cat1 absolute top-[-16px] w-[180px] px-4  left-[-164px] py-8">
+                            <div className="cat1 absolute top-[-16px] w-[180px] px-4  left-[-164px] -8">
                               <ul className="bg-white shadow-md flex flex-col ">
                                 {dataCats?.payload.categories.map((cat) => (
                                   <li

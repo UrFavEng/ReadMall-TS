@@ -15,6 +15,7 @@ import {
   SearchBook,
   BookPage,
   AuthorPage,
+  Publisher,
 } from "./components/index";
 import { useState } from "react";
 function App() {
@@ -128,6 +129,15 @@ function App() {
           element={
             <AuthorPage
               handleClick={handleClick}
+              handleChangeBook={handleChangeBook}
+              handleChangeCat={handleChangeCat}
+            />
+          }
+        />
+        <Route
+          path="/publisher/:id"
+          element={
+            <Publisher
               handleChangeBook={handleChangeBook}
               handleChangeCat={handleChangeCat}
             />

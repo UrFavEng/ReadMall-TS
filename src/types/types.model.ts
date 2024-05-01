@@ -523,3 +523,59 @@ export interface getAuthorByIdRES {
   };
 }
 //end get Author By Id
+//start get publisher by id
+interface PublisherByIdPublisher {
+  id: number;
+  publisherName: string;
+  license: string;
+}
+
+interface PublisherByIdAuthor {
+  authorName: string;
+}
+
+interface PublisherByIdUser {
+  fullname: string;
+}
+
+interface PublisherByIdCategory {
+  categoryName: string;
+}
+
+interface PublisherByIdBook {
+  id: number;
+  title: string;
+  subTitle: string;
+  desc: string;
+  coverUrl: string;
+  pages: number;
+  views: number;
+  lang: string;
+  releaseDate: string;
+  format: string;
+  size: number;
+  copyright: boolean;
+  toBuy: boolean;
+  bookUrl: string;
+  price: number | null;
+  createdAt: string;
+  updatedAt: string;
+  authorId: number;
+  uploaderId: number;
+  publisherId: number;
+  categoryId: number;
+  author: PublisherByIdAuthor;
+  publisher: PublisherByIdPublisher;
+  user: PublisherByIdUser;
+  category: PublisherByIdCategory;
+}
+
+export interface PublisherByIdResponse {
+  error: boolean;
+  message: string;
+  payload: {
+    publisher: PublisherByIdPublisher;
+    books: PublisherByIdBook[];
+  };
+}
+//end get publisher by id
