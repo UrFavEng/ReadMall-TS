@@ -5,8 +5,17 @@ import { useSigninMutation } from "../store/apislice";
 import { FaRegEye } from "react-icons/fa";
 import { LoginReq } from "../../types/types.model";
 import { ThreeDots } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 const LogIn = () => {
+  const handleError = () => {
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "Oops...",
+      text: "Server Error, please try again",
+    });
+  };
   const navigate = useNavigate();
   const [err, setErr] = useState<string>("");
 
@@ -30,7 +39,11 @@ const LogIn = () => {
       })
       .catch((rejected) => {
         console.error(rejected);
-        setErr(rejected.data.message);
+        if (rejected?.status == 500) {
+          handleError();
+        } else {
+          setErr(rejected.data.message);
+        }
       });
   };
   const [showPass, setShowPass] = useState<boolean>(false);
@@ -70,7 +83,7 @@ const LogIn = () => {
             className=" w-full h-[40px] pl-2 md:h-[5=40px] border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium py-1 rounded-md focus:outline-0"
           />
           {errors.email?.message && (
-            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-teal-600 py-[5px]">
+            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
               {errors.email?.message}
             </p>
           )}
@@ -89,11 +102,11 @@ const LogIn = () => {
             </span>{" "}
           </div>
           {errors.password?.message && (
-            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-teal-600 py-[5px]">
+            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
               {errors.password?.message}
             </p>
           )}
-          <p className=" capitalize font-medium text-[14px] text-teal-900">
+          <p className=" capitalize font-medium text-[14px] text-[#B10707]">
             {err}
           </p>
           {isLoading ? (

@@ -5,23 +5,15 @@ import { FaSearch } from "react-icons/fa";
 import { GiWhiteBook } from "react-icons/gi";
 import Searchbook from "../../assets/SearchBook.png";
 import BookCard from "../layouts/BookCard";
-interface SearchBookProps {
-  loadingChangeSearch: boolean;
-  loadingChangeCatState: boolean;
-  handleChangeCat: () => void;
-  handleChangeSearch: () => void;
-  handleChangeBook: () => void;
-}
-const SearchBook = ({
-  loadingChangeCatState,
-  handleChangeCat,
-  handleChangeSearch,
-  loadingChangeSearch,
-  handleChangeBook,
-}: SearchBookProps) => {
+
+const SearchBook = () => {
   const navigate = useNavigate();
 
-  const { data: dataCats, isLoading: loadingCat } = useGetAllCatsQuery();
+  const {
+    data: dataCats,
+    isLoading: loadingCat,
+    isError: isErrorGetAllCats,
+  } = useGetAllCatsQuery();
   const famousEnglishAuthors: string[] = [
     "William Shakespeare",
     "Jane Austen",
@@ -33,13 +25,16 @@ const SearchBook = ({
     "William Wordsworth",
   ];
   const { name } = useParams();
-  const { data: dataBook, isLoading: loadingDataBook } =
-    useSearchBookQuery(name);
-  console.log(dataBook, loadingDataBook);
+  const {
+    data: dataBook,
+    isLoading: loadingDataBook,
+    isFetching,
+    isError,
+  } = useSearchBookQuery(name);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" text-teal-800 font-semibold text-[28px] mt-3">
-        {loadingChangeCatState ? (
+        {loadingDataBook || isFetching ? (
           <div className=" flex items-center">
             {" "}
             <ThreeDots
@@ -60,7 +55,6 @@ const SearchBook = ({
           </>
         )}
       </h1>
-
       <div className="flex gap-8 lg:gap-0 flex-col-reverse lg:flex-row py-8 items-start justify-between">
         <div className="flex flex-col gap-6 w-full lg:w-[28%] xl:w-[22%] ">
           <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
@@ -87,21 +81,30 @@ const SearchBook = ({
                 </li>
               ) : (
                 <>
-                  {" "}
-                  {dataCats?.payload.categories.map((cat) => (
-                    <li
-                      onClick={() => (
-                        handleChangeCat(), navigate(`/category/${cat.id}`)
-                      )}
-                      key={cat.id}
-                      className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
-                    >
-                      {cat.categoryName}
-                      <span className=" text-[16px] text-teal-600">
-                        <GiWhiteBook />
-                      </span>
-                    </li>
-                  ))}
+                  {isErrorGetAllCats ? (
+                    <>
+                      {" "}
+                      <li className="flex items-center justify-center text-center text-[#B10707] px-2 font-raleway font-bold text-[14px]  leading-5">
+                        Server error, <br /> try again
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      {dataCats?.payload.categories.map((cat) => (
+                        <li
+                          onClick={() => navigate(`/category/${cat.id}`)}
+                          key={cat.id}
+                          className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
+                        >
+                          {cat.categoryName}
+                          <span className=" text-[16px] text-teal-600">
+                            <GiWhiteBook />
+                          </span>
+                        </li>
+                      ))}
+                    </>
+                  )}
                 </>
               )}
             </ul>
@@ -134,7 +137,6 @@ const SearchBook = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleChangeSearch();
                 const inputValue = (e.target as HTMLFormElement)
                   .elements[0] as HTMLInputElement;
                 // handleClick();
@@ -146,6 +148,7 @@ const SearchBook = ({
               className="rounded-md relative  w-full h-[40px]"
             >
               <input
+                required
                 className="rounded-md pl-2 w-full h-full"
                 type="text"
                 placeholder="Search"
@@ -171,7 +174,7 @@ const SearchBook = ({
               </p>
             </div>
           </div>{" "}
-          {loadingDataBook || loadingChangeSearch ? (
+          {loadingDataBook || isFetching ? (
             <div className=" flex items-center justify-center">
               {" "}
               <ThreeDots
@@ -187,25 +190,32 @@ const SearchBook = ({
             </div>
           ) : (
             <>
-              {dataBook?.payload.books && dataBook?.payload.books.length < 1 ? (
-                <h1 className=" text-center font-semibold text-teal-700 text-[22px] mt-10">
-                  No Books
-                </h1>
-              ) : (
-                <div className="grid gap-4 px-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                  {dataBook?.payload.books.map((book) => (
-                    <BookCard
-                      key={book.id}
-                      book={book}
-                      handleChangeBook={handleChangeBook}
-                    />
-                  ))}
+              {isError ? (
+                <div className="  py-[80px] flex items-center justify-center text-center text-[#B10707] px-2 font-raleway font-bold text-[22px]  leading-5">
+                  Server error, <br /> try again
                 </div>
+              ) : (
+                <>
+                  {" "}
+                  {dataBook?.payload.books &&
+                  dataBook?.payload.books.length < 1 ? (
+                    <h1 className=" text-center font-semibold text-teal-700 text-[22px] mt-10">
+                      No Books
+                    </h1>
+                  ) : (
+                    <div className="grid gap-4 px-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                      {dataBook?.payload.books.map((book) => (
+                        <BookCard key={book.id} book={book} />
+                      ))}
+                    </div>
+                  )}
+                </>
               )}
             </>
           )}
         </div>
-      </div>
+      </div>{" "}
+      <div className="mb-4 bg-white py-2 px-2 border-b-[1px] h-[35px] border-teal-400 rounded-lg shadow-md rounded-t-none  flex items-center justify-start gap-1 text-teal-800"></div>
     </div>
   );
 };

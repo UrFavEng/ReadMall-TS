@@ -18,6 +18,7 @@ import {
   SignUpReq,
   SignUpRes,
   editProfileRES,
+  getAllFavs,
   getAuthorByIdRES,
   getBookByCatRES,
   getmeRES,
@@ -146,6 +147,10 @@ export const apiSlice = createApi({
     getPublisherById: builder.query<PublisherByIdResponse, string | undefined>({
       query: (id) => `/publishers/getPublisherById/${id}`,
     }),
+    getAllFavs: builder.query<getAllFavs, void>({
+      query: () => `/favorites/allFavorites`,
+      providesTags: ["fav"],
+    }),
   }),
 });
 
@@ -172,4 +177,5 @@ export const {
   useDeleteReviewMutation,
   useGetAuthorBuIdQuery,
   useGetPublisherByIdQuery,
+  useGetAllFavsQuery,
 } = apiSlice;

@@ -579,3 +579,44 @@ export interface PublisherByIdResponse {
   };
 }
 //end get publisher by id
+// start get allFavs
+export interface getAllFavsBook {
+  id: number;
+  title: string;
+  subTitle: string;
+  desc: string;
+  coverUrl: string;
+  pages: number;
+  views: number;
+  lang: string;
+  releaseDate: string;
+  format: string;
+  size: number;
+  copyright: boolean;
+  toBuy: boolean;
+  bookUrl: string;
+  price: number | null;
+  createdAt: string;
+  updatedAt: string;
+  authorId: number;
+  uploaderId: number;
+  publisherId: number;
+  categoryId: number;
+}
+
+interface getAllFavsBookOwnership {
+  bookId: number;
+  userId: number;
+  book: getAllFavsBook;
+}
+
+export interface getAllFavs {
+  error: boolean;
+  message: string;
+  payload: {
+    books: getAllFavsBookOwnership[];
+    numOfPages: number;
+  };
+}
+
+// end get allFavs

@@ -25,22 +25,16 @@ import { ReviewREQ } from "../../types/types.model";
 import { IoCartOutline } from "react-icons/io5";
 import Reviews from "../layouts/Reviews";
 import Swal from "sweetalert2";
-interface BookPageProps {
-  handleChangeCat: () => void;
-  handleChangeSearch: () => void;
-  handleChangeBook: () => void;
-  loadingChangeBook: boolean;
-}
-const BookPage = ({
-  handleChangeCat,
-  handleChangeSearch,
-  loadingChangeBook,
-  handleChangeBook,
-}: BookPageProps) => {
+
+const BookPage = () => {
   const [value, setValue] = useState<number | null>(null);
   const [errRate, setErrRate] = useState<string>("");
   const { id } = useParams();
-  const { data: dataBook, isLoading: loadingDataBook } = useBookByIdQuery(id);
+  const {
+    data: dataBook,
+    isLoading: loadingDataBook,
+    isFetching: isFetchingBookById,
+  } = useBookByIdQuery(id);
   const navigate = useNavigate();
   console.log(dataBook, loadingDataBook);
   const { data: dataCats } = useGetAllCatsQuery();
@@ -163,7 +157,7 @@ const BookPage = ({
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" bg-white flex-wrap py-2 px-2 border-t-[1px] border-teal-400 rounded-lg shadow-md rounded-b-none  flex items-center justify-start gap-1 text-teal-800  mt-5">
-        {loadingDataBook || loadingChangeBook ? (
+        {loadingDataBook || isFetchingBookById ? (
           <div className=" flex items-center justify-center">
             {" "}
             <ThreeDots
@@ -229,9 +223,7 @@ const BookPage = ({
             <ul className=" mt-2">
               {dataCats?.payload.categories.map((cat) => (
                 <li
-                  onClick={() => (
-                    handleChangeCat(), navigate(`/category/${cat.id}`)
-                  )}
+                  onClick={() => navigate(`/category/${cat.id}`)}
                   key={cat.id}
                   className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
                 >
@@ -271,7 +263,6 @@ const BookPage = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                handleChangeSearch();
                 const inputValue = (e.target as HTMLFormElement)
                   .elements[0] as HTMLInputElement;
                 // handleClick();
@@ -297,7 +288,7 @@ const BookPage = ({
             </form>
           </div>
           <div className=" relative bg-white py-3 px-2 gap-6 border-2 rounded-md rounded-b-none border-b-0 flex flex-col sm:flex-row items-start justify-start ">
-            {loadingDataBook || loadingChangeBook ? (
+            {loadingDataBook ? (
               <div className=" m-auto h-[48vh] flex items-center justify-center">
                 <ThreeDots
                   visible={true}
@@ -588,14 +579,10 @@ const BookPage = ({
 
           <Reviews />
 
-          {!loadingChangeBook && (
+          {!true && (
             <div className="grid mt-4 gap-4  grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {dataBook?.payload.recommendations.map((book) => (
-                <BookCard
-                  handleChangeBook={handleChangeBook}
-                  key={book.id}
-                  book={book}
-                />
+                <BookCard key={book.id} book={book} />
               ))}
             </div>
           )}

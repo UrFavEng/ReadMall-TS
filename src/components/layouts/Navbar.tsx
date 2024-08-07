@@ -13,12 +13,16 @@ import PopUpSearchBar from "./PopUpSearchBar";
 import { IoPerson } from "react-icons/io5";
 import { IoEnterOutline } from "react-icons/io5";
 import { ThreeDots } from "react-loader-spinner";
-interface NavbarProps {
-  handleChangeCat: () => void;
-  handleChangeSearch: () => void;
-}
-const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
-  const { data: dataCats } = useGetAllCatsQuery();
+// interface NavbarProps {
+//   handleChangeCat: () => void;
+//   handleChangeSearch: () => void;
+// }
+const Navbar = () => {
+  const {
+    data: dataCats,
+    isLoading: isLoadingGetAllCats,
+    isError,
+  } = useGetAllCatsQuery();
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
   const { data: dataMe, isLoading: loadingGetMe } = useGetMeQuery();
@@ -53,17 +57,45 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
                 Categories
                 <div className="cat absolute top-[14px] w-[200px] px-4  left-[-16px] py-8">
                   <ul className="bg-white shadow-md flex flex-col ">
-                    {dataCats?.payload.categories.map((cat) => (
-                      <li
-                        onClick={() => (
-                          handleChangeCat(), navigate(`/category/${cat.id}`)
-                        )}
-                        key={cat.id}
-                        className="transition capitalize hover:bg-[#f1f1f1] px-2 py-1 text-teal-800 "
-                      >
-                        {cat.categoryName}
+                    {isLoadingGetAllCats ? (
+                      <li className=" basis-[100%] flex items-center justify-center">
+                        {" "}
+                        <ThreeDots
+                          visible={true}
+                          height="35"
+                          width="35"
+                          color="#115e59"
+                          radius="9"
+                          ariaLabel="three-dots-loading"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
                       </li>
-                    ))}
+                    ) : (
+                      <>
+                        {isError ? (
+                          <li className="bg-[#f1f1f1]  flex items-center justify-center text-center text-[#B10707] py-3 px-2 font-raleway font-bold text-[14px] leading-3">
+                            Server error, <br /> try again
+                          </li>
+                        ) : (
+                          <>
+                            {" "}
+                            {dataCats?.payload.categories.map((cat) => (
+                              <li
+                                onClick={() =>
+                                  // handleChangeCat(),
+                                  navigate(`/category/${cat.id}`)
+                                }
+                                key={cat.id}
+                                className="transition capitalize hover:bg-[#f1f1f1] px-2 py-1 text-teal-800 "
+                              >
+                                {cat.categoryName}
+                              </li>
+                            ))}
+                          </>
+                        )}
+                      </>
+                    )}
                   </ul>
                 </div>
               </li>
@@ -150,10 +182,10 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
                               <ul className="bg-white shadow-md flex flex-col ">
                                 {dataCats?.payload.categories.map((cat) => (
                                   <li
-                                    onClick={() => (
-                                      handleChangeCat(),
+                                    onClick={() =>
+                                      // handleChangeCat(),
                                       navigate(`/category/${cat.id}`)
-                                    )}
+                                    }
                                     key={cat.id}
                                     className="transition capitalize hover:bg-[#f1f1f1] px-2 py-2 text-teal-800 "
                                   >
@@ -195,10 +227,10 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
                           <ul className="bg-white shadow-md flex flex-col ">
                             {dataCats?.payload.categories.map((cat) => (
                               <li
-                                onClick={() => (
-                                  handleChangeCat(),
+                                onClick={() =>
+                                  // handleChangeCat(),
                                   navigate(`/category/${cat.id}`)
-                                )}
+                                }
                                 key={cat.id}
                                 className="transition capitalize hover:bg-[#f1f1f1] px-2 py-2 text-teal-800 "
                               >
@@ -348,7 +380,7 @@ const Navbar = ({ handleChangeCat, handleChangeSearch }: NavbarProps) => {
       {show && (
         <PopUpSearchBar
           setShow={setShow}
-          handleChangeSearch={handleChangeSearch}
+          // handleChangeSearch={handleChangeSearch}
         />
       )}
       {/* <div className="bg-teal-800 w-5 h-5"></div>

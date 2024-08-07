@@ -5,19 +5,30 @@ import { SignUpReq } from "../../types/types.model";
 import { useSignUpMutation } from "../store/apislice";
 import { useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const navigate = useNavigate();
+  const handleError = () => {
+    Swal.fire({
+      position: "center",
+      icon: "error",
+      title: "Oops...",
+      text: "Server Error, please try again",
+    });
+  };
 
-  const [signUp, { isLoading }] = useSignUpMutation();
+  const navigate = useNavigate();
+  const [err, setErr] = useState<string>("");
+  const [signUp, { isLoading, error }] = useSignUpMutation();
   const targetSecRef = useRef<HTMLInputElement>(null);
-  console.log(targetSecRef.current?.value);
+  console.log(error);
   const {
     handleSubmit,
     register,
     formState: { errors },
   } = useForm<SignUpReq>();
   const onSubmit: SubmitHandler<SignUpReq> = (data) => {
+    setErr("");
     console.log(data);
     if (data.password == targetSecRef.current?.value) {
       signUp(data)
@@ -30,6 +41,11 @@ const SignUp = () => {
           location.reload();
         })
         .catch((rejected) => {
+          if (rejected?.status == 500) {
+            handleError();
+          } else {
+            setErr(rejected.data.message);
+          }
           console.error(rejected);
         });
     } else {
@@ -44,7 +60,6 @@ const SignUp = () => {
       <div>
         <form
           onSubmit={handleSubmit(onSubmit)}
-          action=""
           className=" w-[300px] sm:w-[480px] flex items-center justify-center flex-col gap-2"
         >
           <input
@@ -54,7 +69,7 @@ const SignUp = () => {
             className=" w-full h-[40px] pl-2 md:h-[5=40px] border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium py-1 rounded-md focus:outline-0"
           />
           {errors.fullname?.message && (
-            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-teal-600 py-[5px]">
+            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
               {errors.fullname?.message}
             </p>
           )}
@@ -85,7 +100,7 @@ const SignUp = () => {
             className=" w-full h-[40px] pl-2 md:h-[5=40px] border-gray-300 border-2 placeholder:text-[16px] placeholder:font-medium py-1 rounded-md focus:outline-0"
           />
           {errors.email?.message && (
-            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-teal-600 py-[5px]">
+            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
               {errors.email?.message}
             </p>
           )}
@@ -104,7 +119,7 @@ const SignUp = () => {
             </span>{" "}
           </div>
           {errors.password?.message && (
-            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-teal-600 py-[5px]">
+            <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
               {errors.password?.message}
             </p>
           )}
@@ -122,7 +137,7 @@ const SignUp = () => {
               <FaRegEye />
             </span>
           </div>
-          <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-teal-600 py-[5px]">
+          <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
             {errPass}
           </p>
           {isLoading ? (
@@ -140,11 +155,18 @@ const SignUp = () => {
               />
             </div>
           ) : (
-            <input
-              type="submit"
-              value="Submit"
-              className="bg-teal-800 transition md:text-[18px] font-medium hover:bg-teal-600 h-[40px] md:h-[50px] px-2 w-[100px] md:w-[120px] text-white cursor-pointer hover:text-[#000] border-gray-300 border-2 border-l-0 rounded-lg"
-            />
+            <>
+              {err.trim() && (
+                <p className="w-[100%] tracking-[1px] leading-[0px] text-[14px] ml-1 font-medium text-[#B10707] py-[5px]">
+                  {err}
+                </p>
+              )}
+              <input
+                type="submit"
+                value="Submit"
+                className="bg-teal-800 transition md:text-[18px] font-medium hover:bg-teal-600 h-[40px] md:h-[50px] px-2 w-[100px] md:w-[120px] text-white cursor-pointer hover:text-[#000] border-gray-300 border-2 border-l-0 rounded-lg"
+              />
+            </>
           )}
         </form>
         <p className=" font-medium text-[14px] text-center text-gray-900 mt-1">

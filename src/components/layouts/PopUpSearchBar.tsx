@@ -1,27 +1,37 @@
 import { IoCloseCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 type ChildProps = {
   setShow: (newValue: boolean) => void;
-  handleChangeSearch: () => void;
 };
-const PopUpSearchBar = ({ setShow, handleChangeSearch }: ChildProps) => {
+
+const PopUpSearchBar = ({ setShow }: ChildProps) => {
   const navigate = useNavigate();
 
   const closePopup = () => {
     setShow(false);
     document.body.style.overflow = "auto";
   };
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
+
   return (
     <div>
       <div
         onClick={() => (setShow(false), closePopup())}
-        className="bg-gray-500 bg-opacity-50 absolute z-40 w-[10000vh] h-[10000vh]"
+        className="bg-gray-500 bg-opacity-50 absolute z-40 w-screen h-screen"
       ></div>
-      <div className="z-50 fixed flex flex-col justify-center h-[220px] rounded-lg px-3 py-4 w-[500px] bg-white shadow-md top-[35%] left-[50%] translate-x-[-50%] translate-y-[-50%]">
-        <div className="  flex flex-row-reverse justify-between items-center">
+      <div className="popup-container z-50 fixed flex flex-col justify-center h-[220px] rounded-lg px-3 py-4 w-[500px] bg-white shadow-md top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%]">
+        <div className="flex flex-row-reverse justify-between items-center">
           <span
             onClick={() => (setShow(false), closePopup())}
-            className=" cursor-pointer text-[24px]"
+            className="cursor-pointer text-[24px]"
           >
             <IoCloseCircleOutline />
           </span>
@@ -33,24 +43,21 @@ const PopUpSearchBar = ({ setShow, handleChangeSearch }: ChildProps) => {
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleChangeSearch();
             document.body.style.overflow = "auto";
 
             const inputValue = (e.target as HTMLFormElement)
               .elements[0] as HTMLInputElement;
-            // handleClick();
             if (inputValue.value.trim() !== "") {
               navigate(`/searchBook/${inputValue.value}`);
               setShow(false);
             }
           }}
-          action=""
-          className=" pt-8 flex items-center justify-center gap-3 flex-col"
+          className="pt-8 flex items-center justify-center gap-3 flex-col"
         >
           <input
             type="text"
             placeholder="Search"
-            className=" w-full h-[40px] pl-2 md:h-[50px] border-gray-300 border-2 placeholder:text-[18px] placeholder:font-medium py-1 focus:outline-0"
+            className="w-full h-[40px] pl-2 md:h-[50px] border-gray-300 border-2 placeholder:text-[18px] placeholder:font-medium py-1 focus:outline-0"
           />
           <input
             type="submit"

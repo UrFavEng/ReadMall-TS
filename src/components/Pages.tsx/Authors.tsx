@@ -3,12 +3,10 @@ import { GiWhiteBook } from "react-icons/gi";
 import { useGetAllCatsQuery } from "../store/apislice";
 import authors from "../../assets/popular_user1.svg";
 import { Outlet, useNavigate } from "react-router-dom";
-interface AuthorsProps {
-  handleClick: () => void;
-  handleChangeCat: () => void;
-}
-const Authors = ({ handleClick, handleChangeCat }: AuthorsProps) => {
-  const { data: dataCats } = useGetAllCatsQuery();
+import { ThreeDots } from "react-loader-spinner";
+
+const Authors = () => {
+  const { data: dataCats, isLoading, isError } = useGetAllCatsQuery();
   const famousEnglishAuthors: string[] = [
     "William Shakespeare",
     "Jane Austen",
@@ -39,20 +37,54 @@ const Authors = ({ handleClick, handleChangeCat }: AuthorsProps) => {
               </span>{" "}
             </h1>
             <ul className=" mt-2">
-              {dataCats?.payload.categories.map((cat) => (
-                <li
-                  onClick={() => (
-                    handleChangeCat(), navigate(`/category/${cat.id}`)
+              {isLoading ? (
+                <>
+                  {" "}
+                  <li className=" flex items-center justify-center">
+                    {" "}
+                    <ThreeDots
+                      visible={true}
+                      height="35"
+                      width="35"
+                      color="#115e59"
+                      radius="9"
+                      ariaLabel="three-dots-loading"
+                      wrapperStyle={{}}
+                      wrapperClass=""
+                    />
+                  </li>
+                </>
+              ) : (
+                <>
+                  {isError ? (
+                    <>
+                      {" "}
+                      <li className="  flex items-center justify-center text-center text-[#B10707] py-3 px-2 font-raleway font-bold text-[14px] leading-3">
+                        Server error, <br /> try again
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      {" "}
+                      {dataCats?.payload.categories.map((cat) => (
+                        <li
+                          onClick={() =>
+                            // handleChangeCat(),
+                            navigate(`/category/${cat.id}`)
+                          }
+                          key={cat.id}
+                          className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
+                        >
+                          {cat.categoryName}
+                          <span className=" text-[16px] text-teal-600">
+                            <GiWhiteBook />
+                          </span>
+                        </li>
+                      ))}
+                    </>
                   )}
-                  key={cat.id}
-                  className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
-                >
-                  {cat.categoryName}
-                  <span className=" text-[16px] text-teal-600">
-                    <GiWhiteBook />
-                  </span>
-                </li>
-              ))}
+                </>
+              )}
             </ul>
           </div>
           <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
@@ -85,7 +117,7 @@ const Authors = ({ handleClick, handleChangeCat }: AuthorsProps) => {
                 e.preventDefault();
                 const inputValue = (e.target as HTMLFormElement)
                   .elements[0] as HTMLInputElement;
-                handleClick();
+
                 navigate(`${inputValue.value}`);
               }}
               action=""

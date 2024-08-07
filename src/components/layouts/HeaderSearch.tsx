@@ -2,18 +2,18 @@ import { FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 interface HeaderSearchProps {
   setMostOrRecently: (arg: string) => void;
-  handleClick: () => void;
+  // handleClick: () => void;
   handleGoToSec: () => void;
-  handleChangeSearch: () => void;
+  // handleChangeSearch: () => void;
   setActive: (arg: boolean) => void;
 }
 const HeaderSearch = ({
   setMostOrRecently,
-  handleClick,
+  // handleClick,
   handleGoToSec,
   setActive,
-  handleChangeSearch,
-}: HeaderSearchProps) => {
+}: // handleChangeSearch,
+HeaderSearchProps) => {
   const navigate = useNavigate();
 
   return (
@@ -29,7 +29,7 @@ const HeaderSearch = ({
         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleChangeSearch();
+            // handleChangeSearch();
             const inputValue = (e.target as HTMLFormElement)
               .elements[0] as HTMLInputElement;
             // handleClick();
@@ -37,7 +37,6 @@ const HeaderSearch = ({
               navigate(`/searchBook/${inputValue.value}`);
             }
           }}
-          action=""
           className=" relative flex items-center justify-center"
         >
           <span className=" absolute left-8 text-[18px] text-teal-800 hidden md:block">
@@ -59,7 +58,7 @@ const HeaderSearch = ({
         <button
           onClick={() => {
             setMostOrRecently("getRecentlyUploaded"),
-              handleClick(),
+              // handleClick(),
               handleGoToSec(),
               setActive(false);
           }}
@@ -70,7 +69,7 @@ const HeaderSearch = ({
         <button
           onClick={() => {
             setMostOrRecently("getByViews"),
-              handleClick(),
+              // handleClick(),
               handleGoToSec(),
               setActive(true);
           }}
