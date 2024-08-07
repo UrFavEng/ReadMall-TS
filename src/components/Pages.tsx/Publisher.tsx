@@ -10,11 +10,7 @@ import { FaSearch } from "react-icons/fa";
 import { GiWhiteBook } from "react-icons/gi";
 import BookCard from "../layouts/BookCard";
 
-interface PublisherProps {
-  handleChangeBook: () => void;
-  handleChangeCat: () => void;
-}
-const Publisher = ({ handleChangeBook, handleChangeCat }: PublisherProps) => {
+const Publisher = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { data: dataCats } = useGetAllCatsQuery();
@@ -65,9 +61,7 @@ const Publisher = ({ handleChangeBook, handleChangeCat }: PublisherProps) => {
             <ul className=" mt-2">
               {dataCats?.payload.categories.map((cat) => (
                 <li
-                  onClick={() => (
-                    handleChangeCat(), navigate(`/category/${cat.id}`)
-                  )}
+                  onClick={() => navigate(`/category/${cat.id}`)}
                   key={cat.id}
                   className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
                 >
@@ -144,11 +138,7 @@ const Publisher = ({ handleChangeBook, handleChangeCat }: PublisherProps) => {
           {!loadingDataPublisher && (
             <div className="grid mt-4 gap-4  grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {dataPublisher?.payload.books.map((book) => (
-                <BookCard
-                  handleChangeBook={handleChangeBook}
-                  key={book.id}
-                  book={book}
-                />
+                <BookCard key={book.id} book={book} />
               ))}
             </div>
           )}

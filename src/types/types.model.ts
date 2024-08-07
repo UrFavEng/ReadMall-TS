@@ -48,7 +48,7 @@ export interface RecentlyAndMostBook {
   uploaderId: number;
   publisherId: number;
   categoryId: number;
-  author: RecentlyAndMostAuthor;
+  author?: RecentlyAndMostAuthor;
   publisher: RecentlyAndMostPublisher;
   user: RecentlyAndMostUser;
   category: RecentlyAndMostCategory;
@@ -272,7 +272,7 @@ export interface SearchBook {
   views: number;
   lang: string;
   copyright: boolean;
-  author: {
+  author?: {
     authorName: string;
     id: number;
   };
@@ -500,7 +500,7 @@ export interface GetAuthorByIdBook {
   uploaderId: number;
   publisherId: number;
   categoryId: number;
-  author: {
+  author?: {
     authorName: string;
   };
   publisher: {
@@ -581,6 +581,9 @@ export interface PublisherByIdResponse {
 //end get publisher by id
 // start get allFavs
 export interface getAllFavsBook {
+  author?: {
+    authorName: string;
+  };
   id: number;
   title: string;
   subTitle: string;

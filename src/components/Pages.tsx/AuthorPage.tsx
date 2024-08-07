@@ -5,16 +5,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllCatsQuery, useGetAuthorBuIdQuery } from "../store/apislice";
 import { ThreeDots } from "react-loader-spinner";
 import bookAuth from "../../assets/bookAuthor.svg";
-interface AuthorPageProps {
-  handleChangeCat: () => void;
-  handleChangeBook: () => void;
-  handleClick: () => void;
-}
-const AuthorPage = ({
-  handleChangeCat,
-  handleChangeBook,
-  handleClick,
-}: AuthorPageProps) => {
+
+const AuthorPage = () => {
   const { id } = useParams();
   const { data: dataAuthor, isLoading: loadingDataAuthor } =
     useGetAuthorBuIdQuery(id);
@@ -76,9 +68,7 @@ const AuthorPage = ({
             <ul className=" mt-2">
               {dataCats?.payload.categories.map((cat) => (
                 <li
-                  onClick={() => (
-                    handleChangeCat(), navigate(`/category/${cat.id}`)
-                  )}
+                  onClick={() => navigate(`/category/${cat.id}`)}
                   key={cat.id}
                   className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
                 >
@@ -120,7 +110,6 @@ const AuthorPage = ({
                 e.preventDefault();
                 const inputValue = (e.target as HTMLFormElement)
                   .elements[0] as HTMLInputElement;
-                handleClick();
                 navigate(`/authors/${inputValue.value}`);
               }}
               action=""
@@ -199,11 +188,7 @@ const AuthorPage = ({
           {!loadingDataAuthor && (
             <div className="grid mt-4 gap-4  grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {dataAuthor?.payload.books.map((book) => (
-                <BookCard
-                  handleChangeBook={handleChangeBook}
-                  key={book.id}
-                  book={book}
-                />
+                <BookCard key={book.id} book={book} />
               ))}
             </div>
           )}

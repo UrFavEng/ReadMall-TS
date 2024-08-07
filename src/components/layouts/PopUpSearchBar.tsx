@@ -22,12 +22,12 @@ const PopUpSearchBar = ({ setShow }: ChildProps) => {
   }, []);
 
   return (
-    <div>
+    <div className="fixed flex items-center justify-center z-10 top-0 left-0 w-[100vw] h-[100vh] bg-[#00000069]">
       <div
         onClick={() => (setShow(false), closePopup())}
         className="bg-gray-500 bg-opacity-50 absolute z-40 w-screen h-screen"
       ></div>
-      <div className="popup-container z-50 fixed flex flex-col justify-center h-[220px] rounded-lg px-3 py-4 w-[500px] bg-white shadow-md top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%]">
+      <div className="popup-container z-50 fixed flex flex-col justify-center h-[220px] rounded-lg px-3 py-4 w-[360px] sm:w-[500px] bg-white shadow-md top-[50%] left-[50%] translate-x-[-50%] translate-y-[50%]">
         <div className="flex flex-row-reverse justify-between items-center">
           <span
             onClick={() => (setShow(false), closePopup())}

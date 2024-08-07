@@ -18,38 +18,7 @@ import {
   Publisher,
   AllFav,
 } from "./components/index";
-import { useState } from "react";
 function App() {
-  const [loadingChangeSearch, setLoadingChangeSearchState] =
-    useState<boolean>(false);
-  const [loadingChangeCatState, setLoadingChangeCatState] =
-    useState<boolean>(false);
-
-  // const handleChangeCat = () => {
-  //   setLoadingChangeCatState(true);
-  //   setTimeout(() => {
-  //     setLoadingChangeCatState(false);
-  //   }, 2000);
-  // };
-  // const handleClick = () => {
-  //   setLoadingChangeState(true);
-  //   setTimeout(() => {
-  //     setLoadingChangeState(false);
-  //   }, 2000);
-  // };
-  // const handleChangeSearch = () => {
-  //   setLoadingChangeSearchState(true);
-  //   setTimeout(() => {
-  //     setLoadingChangeSearchState(false);
-  //   }, 2000);
-  // };
-  const [loadingChangeBook, setLoadingChangeBook] = useState<boolean>(false);
-  // const handleChangeBook = () => {
-  //   setLoadingChangeBook(true);
-  //   setTimeout(() => {
-  //     setLoadingChangeBook(false);
-  //   }, 2000);
-  // };
   return (
     <div className="bg-[#f1f1f1]">
       <Navbar
@@ -73,23 +42,8 @@ function App() {
         <Route path="/searchBook/:name" element={<SearchBook />} />
         <Route path="/book/:id" element={<BookPage />} />
         <Route path="/author/:id" element={<AuthorPage />} />
-        <Route
-          path="/publisher/:id"
-          element={
-            <Publisher
-            // handleChangeBook={handleChangeBook}
-            // handleChangeCat={handleChangeCat}
-            />
-          }
-        />
-        <Route
-          path="/allFav"
-          element={
-            <AllFav
-            //  handleChangeBook={handleChangeBook}
-            />
-          }
-        />
+        <Route path="/publisher/:id" element={<Publisher />} />
+        <Route path="/allFav" element={<AllFav />} />
       </Routes>
       <div className=" container m-auto  px-4"></div>
     </div>

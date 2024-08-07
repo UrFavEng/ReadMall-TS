@@ -41,8 +41,7 @@ const BookCard = ({ book }: BookCardProps) => {
         {book.title}
       </h3>
       <h5 className="text-teal-600 font-medium text-[14px] capitalize">
-        {" "}
-        {book?.author.authorName}
+        {book?.author?.authorName}
       </h5>
     </div>
   );
