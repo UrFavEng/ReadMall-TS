@@ -13,10 +13,7 @@ import PopUpSearchBar from "./PopUpSearchBar";
 import { IoPerson } from "react-icons/io5";
 import { IoEnterOutline } from "react-icons/io5";
 import { ThreeDots } from "react-loader-spinner";
-// interface NavbarProps {
-//   handleChangeCat: () => void;
-//   handleChangeSearch: () => void;
-// }
+
 const Navbar = () => {
   const {
     data: dataCats,
@@ -183,7 +180,6 @@ const Navbar = () => {
                                 {dataCats?.payload.categories.map((cat) => (
                                   <li
                                     onClick={() =>
-                                      // handleChangeCat(),
                                       navigate(`/category/${cat.id}`)
                                     }
                                     key={cat.id}
@@ -195,10 +191,16 @@ const Navbar = () => {
                               </ul>
                             </div>
                           </li>
-                          <li className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                          <li
+                            onClick={() => navigate("/allFav")}
+                            className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 "
+                          >
                             My Favorites
                           </li>
-                          <li className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                          <li
+                            onClick={() => navigate("/allCrt")}
+                            className="transition text-gray-900 text-[12px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 "
+                          >
                             My Cart
                           </li>
                           <li
@@ -206,7 +208,6 @@ const Navbar = () => {
                               localStorage.removeItem("token");
                               localStorage.removeItem("dataUser");
                               navigate(`/`);
-
                               location.reload();
                             }}
                             className="transition text-[13px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 text-teal-800 "
@@ -263,15 +264,20 @@ const Navbar = () => {
                   ""
                 ) : (
                   <div className=" hidden sm:flex items-center justify-center gap-1">
-                    <div className="hidden md:block text-[34px] text-teal-800 cursor-pointer">
+                    <div
+                      onClick={() => navigate("/allCrt")}
+                      className="hidden md:block text-[34px] text-teal-800 cursor-pointer"
+                    >
                       <IoCartOutline />
                     </div>
-                    <div className=" text-[34px] text-teal-800  cursor-pointer">
+                    <div
+                      onClick={() => navigate("/allFav")}
+                      className=" text-[34px] text-teal-800  cursor-pointer"
+                    >
                       <MdOutlineFavoriteBorder />
                     </div>
                   </div>
                 )}
-
                 <div className="par-cat  relative transition hidden sm:flex  items-center justify-center text-gray-300 hover:text-white hover:bg-teal-600 bg-teal-800 py-1 rounded-md gap-2 cursor-pointer px-2">
                   {loadingGetMe ? (
                     <div className=" flex items-center justify-center">
@@ -301,7 +307,6 @@ const Navbar = () => {
                       </div>
                     </>
                   )}
-
                   <div className="cat absolute top-[20px] w-[280px] lg:w-[300px] px-4 left-[-140px]  md:left-[-135px] lg:left-[-155px] py-8">
                     <ul className=" bg-white shadow-md flex flex-col ">
                       <li
@@ -329,10 +334,16 @@ const Navbar = () => {
                           <MdKeyboardArrowRight />
                         </div>
                       </li>
-                      <li className="transition text-gray-900 text-[14px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                      <li
+                        onClick={() => navigate("/allFav")}
+                        className="transition text-gray-900 text-[14px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 "
+                      >
                         My Favorites
                       </li>
-                      <li className="transition text-gray-900 text-[14px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 ">
+                      <li
+                        onClick={() => navigate("/allCrt")}
+                        className="transition text-gray-900 text-[14px] h-[40px] font-medium flex items-center justify-between capitalize hover:bg-[#f1f1f1] px-2 y-1 "
+                      >
                         My Cart
                       </li>
                       <li
@@ -377,17 +388,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-      {show && (
-        <PopUpSearchBar
-          setShow={setShow}
-          // handleChangeSearch={handleChangeSearch}
-        />
-      )}
-      {/* <div className="bg-teal-800 w-5 h-5"></div>
-      <div className="bg-gray-300 w-5 h-5"></div>
-      <div className="bg-gray-900 w-5 h-5"></div>
-      <div className="bg-teal-200 w-5 h-5"></div>
-      <div className="bg-teal-600 w-5 h-5"></div> */}
+      {show && <PopUpSearchBar setShow={setShow} />}
     </div>
   );
 };

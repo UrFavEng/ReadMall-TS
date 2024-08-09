@@ -8,8 +8,12 @@ import bookAuth from "../../assets/bookAuthor.svg";
 
 const AuthorPage = () => {
   const { id } = useParams();
-  const { data: dataAuthor, isLoading: loadingDataAuthor } =
-    useGetAuthorBuIdQuery(id);
+  const {
+    data: dataAuthor,
+    isLoading: loadingDataAuthor,
+    isFetching,
+    error,
+  } = useGetAuthorBuIdQuery(id);
   const { data: dataCats } = useGetAllCatsQuery();
 
   const navigate = useNavigate();
@@ -35,10 +39,11 @@ const AuthorPage = () => {
     "Virginia Woolf",
     "William Wordsworth",
   ];
+  console.log(error);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" font-semibold text-[18px] bg-white flex-wrap py-2 px-2 border-t-[1px] border-teal-400 rounded-lg shadow-md rounded-b-none  flex items-center justify-start gap-1 text-teal-800  mt-5">
-        {loadingDataAuthor ? (
+        {loadingDataAuthor || isFetching ? (
           <div className=" flex items-center justify-center">
             {" "}
             <ThreeDots
@@ -146,30 +151,54 @@ const AuthorPage = () => {
               </div>
             ) : (
               <>
-                <div>
-                  <img
-                    src={dataAuthor?.payload.author.authorAvatarUrl}
-                    alt=""
-                    className=" w-[90px] rounded-full"
-                  />
-                </div>
-                <div>
-                  <h2 className=" font-semibold text-[20px] text-teal-800 ">
-                    {dataAuthor?.payload.author.authorName}
-                  </h2>
-                  <p className=" font-medium text-[10px] my-[-2px]">
-                    Birth Date:{" "}
-                    {formatDate(dataAuthor?.payload.author.birthDate)}
+                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                {/* @ts-ignore */}
+                {error?.status == 400 ? (
+                  <p className=" w-[80vw] m-auto lg:w-[65vw] py-[180px] flex items-center justify-center text-[20px] font-bold text-[#B10707]">
+                    Bad id
                   </p>
-                  <p className=" font-medium text-[12px] my-[-5px]">
-                    {dataAuthor?.payload.books.length} books
-                  </p>
-                  <p className=" font-medium text-[14px] ">
-                    {dataAuthor?.payload.author.bio
-                      ? dataAuthor?.payload.author.bio
-                      : "No bio"}
-                  </p>
-                </div>
+                ) : (
+                  <>
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
+                    {error?.status == 500 ? (
+                      <>
+                        {" "}
+                        <div className="m-auto py-[180px] flex items-center justify-center text-center text-[#B10707] px-2 font-raleway font-bold text-[24px]  leading-5">
+                          Server error, <br /> try again
+                        </div>{" "}
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <div>
+                          <img
+                            src={dataAuthor?.payload.author.authorAvatarUrl}
+                            alt=""
+                            className=" w-[90px] rounded-full"
+                          />
+                        </div>
+                        <div>
+                          <h2 className=" font-semibold text-[20px] text-teal-800 ">
+                            {dataAuthor?.payload.author.authorName}
+                          </h2>
+                          <p className=" font-medium text-[10px] my-[-2px]">
+                            Birth Date:{" "}
+                            {formatDate(dataAuthor?.payload.author.birthDate)}
+                          </p>
+                          <p className=" font-medium text-[12px] my-[-5px]">
+                            {dataAuthor?.payload.books.length} books
+                          </p>
+                          <p className=" font-medium text-[14px] ">
+                            {dataAuthor?.payload.author.bio
+                              ? dataAuthor?.payload.author.bio
+                              : "No bio"}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </>
+                )}
               </>
             )}
           </div>
@@ -185,7 +214,21 @@ const AuthorPage = () => {
               </p>
             </div>
           </div>
-          {!loadingDataAuthor && (
+          {loadingDataAuthor || isFetching ? (
+            <div className=" flex items-center justify-center">
+              {" "}
+              <ThreeDots
+                visible={true}
+                height="65"
+                width="65"
+                color="#115e59"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          ) : (
             <div className="grid mt-4 gap-4  grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
               {dataAuthor?.payload.books.map((book) => (
                 <BookCard key={book.id} book={book} />

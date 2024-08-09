@@ -392,7 +392,11 @@ export interface AddReviewRES {
 export interface ReviewREQ {
   comment: string;
   rate: number | null;
-  bookId: string | undefined;
+  bookId: string | undefined | null | number;
+}
+export interface EditReview {
+  rate: number;
+  comment: string;
 }
 // end add review
 // start add fav

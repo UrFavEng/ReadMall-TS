@@ -15,8 +15,12 @@ const Publisher = () => {
   const navigate = useNavigate();
   const { data: dataCats } = useGetAllCatsQuery();
 
-  const { data: dataPublisher, isLoading: loadingDataPublisher } =
-    useGetPublisherByIdQuery(id);
+  const {
+    data: dataPublisher,
+    isLoading: loadingDataPublisher,
+    isFetching,
+    error,
+  } = useGetPublisherByIdQuery(id);
   const famousEnglishAuthors: string[] = [
     "William Shakespeare",
     "Jane Austen",
@@ -27,11 +31,11 @@ const Publisher = () => {
     "Virginia Woolf",
     "William Wordsworth",
   ];
-  console.log(dataPublisher);
+  console.log(error);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" font-semibold text-[18px] bg-white flex-wrap py-2 px-2 border-t-[1px] border-teal-400 rounded-lg shadow-md rounded-b-none  flex items-center justify-start gap-1 text-teal-800  mt-5">
-        {loadingDataPublisher ? (
+        {loadingDataPublisher || isFetching ? (
           <div className=" flex items-center justify-center">
             {" "}
             <ThreeDots
@@ -97,7 +101,7 @@ const Publisher = () => {
         </div>
         <div className=" w-full  lg:w-[68%] xl:w-[75%]">
           <div className=" flex items-center justify-center flex-col gap-1 bg-white mb-4 px-4 py-4 rounded-md">
-            {loadingDataPublisher ? (
+            {loadingDataPublisher || isFetching ? (
               <div className=" flex items-center justify-center">
                 {" "}
                 <ThreeDots
@@ -113,13 +117,37 @@ const Publisher = () => {
               </div>
             ) : (
               <>
-                <h2 className=" text-center text-[24px] font-medium text-teal-700 leading-[25px]">
-                  {dataPublisher?.payload.publisher.publisherName}
-                </h2>
-                <p className="  text-center text-[12px] font-medium text-teal-800 leading-[25px]">
-                  <span className=" text-[11px] text-teal-700">License</span> :
-                  {dataPublisher?.payload.publisher.license}
-                </p>
+                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                {/* @ts-ignore */}
+                {error?.status == 400 ? (
+                  <p className=" w-[80vw] m-auto lg:w-[65vw] py-[180px] flex items-center justify-center text-[20px] font-bold text-[#B10707]">
+                    Bad id
+                  </p>
+                ) : (
+                  <>
+                    {" "}
+                    {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                    {/* @ts-ignore */}
+                    {error?.status == 500 ? (
+                      <div className="m-auto py-[180px] flex items-center justify-center text-center text-[#B10707] px-2 font-raleway font-bold text-[24px]  leading-5">
+                        Server error, <br /> try again
+                      </div>
+                    ) : (
+                      <>
+                        {" "}
+                        <h2 className=" text-center text-[24px] font-medium text-teal-700 leading-[25px]">
+                          {dataPublisher?.payload.publisher.publisherName}
+                        </h2>
+                        <p className="  text-center text-[12px] font-medium text-teal-800 leading-[25px]">
+                          <span className=" text-[11px]  text-[#323232]">
+                            License
+                          </span>{" "}
+                          :{dataPublisher?.payload.publisher.license}
+                        </p>
+                      </>
+                    )}
+                  </>
+                )}
               </>
             )}
           </div>
@@ -135,12 +163,29 @@ const Publisher = () => {
               </p>
             </div>
           </div>
-          {!loadingDataPublisher && (
-            <div className="grid mt-4 gap-4  grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-              {dataPublisher?.payload.books.map((book) => (
-                <BookCard key={book.id} book={book} />
-              ))}
+          {isFetching || loadingDataPublisher ? (
+            <div className=" flex items-center justify-center">
+              {" "}
+              <ThreeDots
+                visible={true}
+                height="65"
+                width="65"
+                color="#115e59"
+                radius="9"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
             </div>
+          ) : (
+            <>
+              {" "}
+              <div className="grid mt-4 gap-4  grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
+                {dataPublisher?.payload.books.map((book) => (
+                  <BookCard key={book.id} book={book} />
+                ))}
+              </div>
+            </>
           )}
         </div>
       </div>

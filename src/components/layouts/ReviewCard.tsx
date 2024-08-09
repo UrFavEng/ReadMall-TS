@@ -6,7 +6,7 @@ import { useState } from "react";
 import { useDeleteReviewMutation } from "../store/apislice";
 import { ThreeDots } from "react-loader-spinner";
 import Swal from "sweetalert2";
-
+import PopUpEditReview from "../layouts/PopUpEditReview";
 interface ReviewCardProps {
   review: GetAllReviews;
 }
@@ -30,11 +30,13 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
 
   const [DeleteReview, { isLoading: loadingDeleteReview }] =
     useDeleteReviewMutation();
-
+  const [showPopUp, setShowPopUp] = useState<boolean>(false);
   const HandleEdit = () => {
     setErrEditReview("");
     if (ID && parseInt(ID) != review.user.id) {
       setErrEditReview("U Can't Edit This Review");
+    } else {
+      setShowPopUp(true);
     }
   };
 
@@ -121,6 +123,9 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
           <p className="font-medium text-teal-600">{errEditReview}</p>
         </div>
       </div>
+      {showPopUp && (
+        <PopUpEditReview setShowPopUp={setShowPopUp} review={review} ID={ID} />
+      )}
     </div>
   );
 };

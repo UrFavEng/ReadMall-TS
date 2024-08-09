@@ -6,6 +6,7 @@ import {
   CategoryByIdRES,
   DeleteFav,
   DeleteReviewRES,
+  EditReview,
   GetAllReviewRES,
   GetBookByIdRES,
   LoginReq,
@@ -83,12 +84,23 @@ export const apiSlice = createApi({
     }),
     bookById: builder.query<GetBookByIdRES, string | undefined>({
       query: (id) => `/books/getById/${id}`,
-      providesTags: ["dataReview", "fav", "crt"],
+      providesTags: ["fav", "crt"],
     }),
     addReview: builder.mutation<AddReviewRES, ReviewREQ>({
       query: (body) => ({
         url: "/reviews/addReview",
         method: "POST",
+        body,
+      }),
+      invalidatesTags: ["dataReview"],
+    }),
+    editReview: builder.mutation<
+      AddReviewRES,
+      { body: EditReview; id: string | undefined | number }
+    >({
+      query: ({ body, id }) => ({
+        url: `/reviews/updateReview/${id}`,
+        method: "PATCH",
         body,
       }),
       invalidatesTags: ["dataReview"],
@@ -151,6 +163,10 @@ export const apiSlice = createApi({
       query: () => `/favorites/allFavorites`,
       providesTags: ["fav"],
     }),
+    getAllcrts: builder.query<getAllFavs, void>({
+      query: () => `/carts/allCartBooks`,
+      providesTags: ["crt"],
+    }),
   }),
 });
 
@@ -178,4 +194,6 @@ export const {
   useGetAuthorBuIdQuery,
   useGetPublisherByIdQuery,
   useGetAllFavsQuery,
+  useEditReviewMutation,
+  useGetAllcrtsQuery,
 } = apiSlice;

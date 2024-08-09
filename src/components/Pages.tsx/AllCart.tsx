@@ -1,14 +1,12 @@
+import { useGetAllcrtsQuery } from "../store/apislice";
 import { ThreeDots } from "react-loader-spinner";
 import BookCard from "../layouts/BookCard";
-import { useGetAllFavsQuery } from "../store/apislice";
-
-const AllFav = () => {
+const AllCart = () => {
   const {
     data: dataBooks,
     isLoading: loadingAllFav,
     error,
-  } = useGetAllFavsQuery();
-  console.log(error);
+  } = useGetAllcrtsQuery();
   return (
     <div className="grid min-h-[100vh] container mx-auto pt-[85px] px-2 gap-4  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {loadingAllFav ? (
@@ -63,4 +61,4 @@ const AllFav = () => {
   );
 };
 
-export default AllFav;
+export default AllCart;

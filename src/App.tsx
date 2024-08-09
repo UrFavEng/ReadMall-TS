@@ -18,6 +18,7 @@ import {
   Publisher,
   AllFav,
 } from "./components/index";
+import AllCart from "./components/Pages.tsx/AllCart";
 function App() {
   return (
     <div className="bg-[#f1f1f1]">
@@ -44,6 +45,7 @@ function App() {
         <Route path="/author/:id" element={<AuthorPage />} />
         <Route path="/publisher/:id" element={<Publisher />} />
         <Route path="/allFav" element={<AllFav />} />
+        <Route path="/allCrt" element={<AllCart />} />
       </Routes>
       <div className=" container m-auto  px-4"></div>
     </div>
