@@ -54,6 +54,8 @@ const PopUpEditReview = ({ setShowPopUp, review }: PopUpEditReviewProps) => {
             <Rating
               name="edit-rating"
               value={rate}
+              //  eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              //  @ts-ignore
               onChange={(event, newValue) => setrate(newValue ?? 0)}
             />
           </div>
