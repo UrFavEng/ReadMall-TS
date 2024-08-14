@@ -13,7 +13,7 @@ import { RecentlyAndMostBook } from "../../types/types.model";
 const MainSec = () => {
   const [allBooks, setAllBooks] = useState<RecentlyAndMostBook[] | []>([]);
   const navigate = useNavigate();
-
+  console.log(allBooks);
   // const [loadingChangeState, setLoadingChangeState] = useState<boolean>(false);
 
   // const handleClick = () => {

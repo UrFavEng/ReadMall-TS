@@ -8,7 +8,7 @@ const AllFav = () => {
     isLoading: loadingAllFav,
     error,
   } = useGetAllFavsQuery();
-  console.log(error);
+  console.log(dataBooks);
   return (
     <div className="grid min-h-[100vh] container mx-auto pt-[85px] px-2 gap-4  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {loadingAllFav ? (

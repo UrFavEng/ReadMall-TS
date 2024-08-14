@@ -3,23 +3,24 @@ import AuthorCard from "./layouts/AuthorCard";
 import BookCard from "./layouts/BookCard";
 import HeaderSearch from "./layouts/HeaderSearch";
 import PopUpSearchBar from "./layouts/PopUpSearchBar";
-import Authors from "./Pages.tsx/Authors";
-import LogIn from "./Pages.tsx/LogIn";
-import MainSec from "./Pages.tsx/MainSec";
-import Profile from "./Pages.tsx/Profile";
-import SignUp from "./Pages.tsx/SignUp";
-import BooksByCat from "./Pages.tsx/BooksByCat";
+import Authors from "./pages/Authors";
+import LogIn from "./pages/LogIn";
+import MainSec from "./pages/MainSec";
+import Profile from "./pages/Profile";
+import SignUp from "./pages/SignUp";
+import BooksByCat from "./pages/BooksByCat";
 import AllBooksInCat from "./layouts/AllBooksInCat";
 import SearchBookInCat from "./layouts/SearchBookInCat";
 import SearchAuthor from "./layouts/SearchAuthor";
 import AllAuthors from "./layouts/AllAuthors";
-import SearchBook from "./Pages.tsx/SearchBook";
-import BookPage from "./Pages.tsx/BookPage";
+import SearchBook from "./pages/SearchBook";
+import BookPage from "./pages/BookPage";
 import ReviewCard from "./layouts/ReviewCard";
 import Reviews from "./layouts/Reviews";
-import AuthorPage from "./Pages.tsx/AuthorPage";
-import Publisher from "./Pages.tsx/Publisher";
-import AllFav from "./Pages.tsx/AllFav";
+import AuthorPage from "./pages/AuthorPage";
+import Publisher from "./pages/Publisher";
+import AllFav from "./pages/AllFav";
+import AllCart from "./pages/AllCart";
 export {
   Navbar,
   AuthorCard,
@@ -43,4 +44,5 @@ export {
   AuthorPage,
   Publisher,
   AllFav,
+  AllCart,
 };
