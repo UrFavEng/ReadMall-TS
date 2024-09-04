@@ -64,8 +64,9 @@ const SearchAuthor = () => {
                   ) : (
                     <>
                       <div className="grid gap-4 px-2 grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-                        {dataAuthors?.payload.authors.map((author) => (
+                        {dataAuthors?.payload.authors.map((author, i) => (
                           <AuthorCard
+                            index={i}
                             key={author.id}
                             author={author.authorName}
                           />

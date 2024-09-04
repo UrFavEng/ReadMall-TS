@@ -15,14 +15,11 @@ const SearchBook = () => {
     isError: isErrorGetAllCats,
   } = useGetAllCatsQuery();
   const famousEnglishAuthors: string[] = [
-    "William Shakespeare",
-    "Jane Austen",
-    "Charles Dickens",
-    "J.K. Rowling",
+    "Harper Lee",
     "George Orwell",
-    "Agatha Christie",
-    "Virginia Woolf",
-    "William Wordsworth",
+    "F. Scott Fitzgerald",
+    "Jane Austen",
+    "J.D. Salinger",
   ];
   const { name } = useParams();
   const {
@@ -117,8 +114,9 @@ const SearchBook = () => {
               </span>{" "}
             </h1>
             <ul className=" mt-2">
-              {famousEnglishAuthors.map((name) => (
+              {famousEnglishAuthors.map((name, i) => (
                 <li
+                  onClick={() => navigate(`/author/${i + 1}`)}
                   key={name}
                   className="hover:underline transition underline-offset-1 text-[18px] text-gray-900  flex items-center justify-between cursor-pointer my-1"
                 >
