@@ -8,6 +8,7 @@ import { GiWhiteBook } from "react-icons/gi";
 import { useState } from "react";
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import AsideAuthors from "../layouts/AsideAuthors";
 
 const BooksByCat = () => {
   const navigate = useNavigate();
@@ -30,15 +31,15 @@ const BooksByCat = () => {
     error: errorGetCatById,
   } = useGetCatByIdQuery(id);
 
-  console.log(errorGetCatById);
+  console.log(dataBooks);
   const { data: dataCats, isLoading: loadingCat } = useGetAllCatsQuery();
-  const famousEnglishAuthors: string[] = [
-    "Harper Lee",
-    "George Orwell",
-    "F. Scott Fitzgerald",
-    "Jane Austen",
-    "J.D. Salinger",
-  ];
+  // const famousEnglishAuthors: string[] = [
+  //   "Harper Lee",
+  //   "George Orwell",
+  //   "F. Scott Fitzgerald",
+  //   "Jane Austen",
+  //   "J.D. Salinger",
+  // ];
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
@@ -125,7 +126,7 @@ const BooksByCat = () => {
                       )}
                     </ul>
                   </div>
-                  <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
+                  {/* <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
                     <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
                       Authors
                       <span className=" text-[14px] text-teal-600">
@@ -146,7 +147,8 @@ const BooksByCat = () => {
                         </li>
                       ))}
                     </ul>
-                  </div>
+                  </div> */}
+                  <AsideAuthors />
                 </div>
                 <div className=" w-full  lg:w-[68%] xl:w-[75%]">
                   <div className="bg-white mb-4   rounded-md">

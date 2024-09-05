@@ -26,6 +26,7 @@ import { ReviewREQ } from "../../types/types.model";
 import { IoCartOutline } from "react-icons/io5";
 import Reviews from "../layouts/Reviews";
 import Swal from "sweetalert2";
+import AsideAuthors from "../layouts/AsideAuthors";
 
 const BookPage = () => {
   const handleSuccess = () => {
@@ -75,16 +76,16 @@ const BookPage = () => {
   console.log(error);
   const { data: dataCats, isLoading: isLoadingGetAllCats } =
     useGetAllCatsQuery();
-  const famousEnglishAuthors: string[] = [
-    "William Shakespeare",
-    "Jane Austen",
-    "Charles Dickens",
-    "J.K. Rowling",
-    "George Orwell",
-    "Agatha Christie",
-    "Virginia Woolf",
-    "William Wordsworth",
-  ];
+  // const famousEnglishAuthors: string[] = [
+  //   "William Shakespeare",
+  //   "Jane Austen",
+  //   "Charles Dickens",
+  //   "J.K. Rowling",
+  //   "George Orwell",
+  //   "Agatha Christie",
+  //   "Virginia Woolf",
+  //   "William Wordsworth",
+  // ];
   function formatDate(dateString: string | undefined): string {
     if (dateString) {
       const date = new Date(dateString);
@@ -327,7 +328,7 @@ const BookPage = () => {
               )}
             </ul>
           </div>
-          <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
+          {/* <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
             <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
               Authors
               <span className=" text-[14px] text-teal-600">
@@ -347,7 +348,8 @@ const BookPage = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
+          <AsideAuthors />
         </div>
         {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
         {/* @ts-ignore */}

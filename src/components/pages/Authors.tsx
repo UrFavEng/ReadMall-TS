@@ -4,6 +4,7 @@ import { useGetAllCatsQuery } from "../store/apislice";
 import authors from "../../assets/popular_user1.svg";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
+import AsideAuthors from "../layouts/AsideAuthors";
 
 const Authors = () => {
   const { data: dataCats, isLoading, isError } = useGetAllCatsQuery();
@@ -84,7 +85,7 @@ const Authors = () => {
               )}
             </ul>
           </div>
-          <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
+          {/* <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
             <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
               Authors
               <span className=" text-[14px] text-teal-600">
@@ -105,7 +106,8 @@ const Authors = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
+          <AsideAuthors />
         </div>
         <div className=" w-full  lg:w-[68%] xl:w-[75%]">
           <div className="bg-white mb-4   rounded-md">

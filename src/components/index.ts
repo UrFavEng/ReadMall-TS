@@ -21,7 +21,9 @@ import AuthorPage from "./pages/AuthorPage";
 import Publisher from "./pages/Publisher";
 import AllFav from "./pages/AllFav";
 import AllCart from "./pages/AllCart";
+import AsideAuthors from "./layouts/AsideAuthors";
 export {
+  AsideAuthors,
   Navbar,
   AuthorCard,
   BookCard,

@@ -5,6 +5,7 @@ import { FaSearch } from "react-icons/fa";
 import { GiWhiteBook } from "react-icons/gi";
 import Searchbook from "../../assets/SearchBook.png";
 import BookCard from "../layouts/BookCard";
+import AsideAuthors from "../layouts/AsideAuthors";
 
 const SearchBook = () => {
   const navigate = useNavigate();
@@ -14,13 +15,13 @@ const SearchBook = () => {
     isLoading: loadingCat,
     isError: isErrorGetAllCats,
   } = useGetAllCatsQuery();
-  const famousEnglishAuthors: string[] = [
-    "Harper Lee",
-    "George Orwell",
-    "F. Scott Fitzgerald",
-    "Jane Austen",
-    "J.D. Salinger",
-  ];
+  // const famousEnglishAuthors: string[] = [
+  //   "Harper Lee",
+  //   "George Orwell",
+  //   "F. Scott Fitzgerald",
+  //   "Jane Austen",
+  //   "J.D. Salinger",
+  // ];
   const { name } = useParams();
   const {
     data: dataBook,
@@ -106,7 +107,7 @@ const SearchBook = () => {
               )}
             </ul>
           </div>
-          <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
+          {/* <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
             <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
               Authors
               <span className=" text-[14px] text-teal-600">
@@ -127,7 +128,8 @@ const SearchBook = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
+          <AsideAuthors />
         </div>
         <div className=" w-full  lg:w-[68%] xl:w-[75%]">
           <div className="bg-white mb-4   rounded-md">

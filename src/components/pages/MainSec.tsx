@@ -5,7 +5,7 @@ import Recently from "../../assets/new_books1.svg";
 import MostView from "../../assets/best_books_all_days1.svg";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
-import { HeaderSearch, BookCard } from "../index";
+import { HeaderSearch, BookCard, AsideAuthors } from "../index";
 import { useNavigate } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { RecentlyAndMostBook } from "../../types/types.model";
@@ -14,21 +14,7 @@ const MainSec = () => {
   const [allBooks, setAllBooks] = useState<RecentlyAndMostBook[] | []>([]);
   const navigate = useNavigate();
   console.log(allBooks);
-  // const [loadingChangeState, setLoadingChangeState] = useState<boolean>(false);
 
-  // const handleClick = () => {
-  //   setLoadingChangeState(true);
-  //   setTimeout(() => {
-  //     setLoadingChangeState(false);
-  //   }, 2000);
-  // };
-  const famousEnglishAuthors: string[] = [
-    "Harper Lee",
-    "George Orwell",
-    "F. Scott Fitzgerald",
-    "Jane Austen",
-    "J.D. Salinger",
-  ];
   const [active, setActive] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
   const [mostOrRecently, setMostOrRecently] = useState<string>(
@@ -160,7 +146,8 @@ const MainSec = () => {
                     )}
                   </ul>
                 </div>
-                <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
+                <AsideAuthors />
+                {/* <div className="  py-4 px-3 rounded-sm shadow-lg bg-white">
                   <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
                     Authors
                     <span className=" text-[14px] text-teal-600">
@@ -184,7 +171,7 @@ const MainSec = () => {
                       </li>
                     ))}
                   </ul>
-                </div>
+                </div> */}
               </div>
               <div
                 ref={targetSecRef}

@@ -9,6 +9,7 @@ import {
 import { FaSearch } from "react-icons/fa";
 import { GiWhiteBook } from "react-icons/gi";
 import BookCard from "../layouts/BookCard";
+import AsideAuthors from "../layouts/AsideAuthors";
 
 const Publisher = () => {
   const { id } = useParams();
@@ -21,13 +22,7 @@ const Publisher = () => {
     isFetching,
     error,
   } = useGetPublisherByIdQuery(id);
-  const famousEnglishAuthors: string[] = [
-    "Harper Lee",
-    "George Orwell",
-    "F. Scott Fitzgerald",
-    "Jane Austen",
-    "J.D. Salinger",
-  ];
+
   console.log(error);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
@@ -74,7 +69,8 @@ const Publisher = () => {
               ))}
             </ul>
           </div>
-          <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
+          <AsideAuthors />
+          {/* <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
             <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
               Authors
               <span className=" text-[14px] text-teal-600">
@@ -95,7 +91,7 @@ const Publisher = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
         <div className=" w-full  lg:w-[68%] xl:w-[75%]">
           <div className=" flex items-center justify-center flex-col gap-1 bg-white mb-4 px-4 py-4 rounded-md">

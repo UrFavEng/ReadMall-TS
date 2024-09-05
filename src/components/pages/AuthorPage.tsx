@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useGetAllCatsQuery, useGetAuthorBuIdQuery } from "../store/apislice";
 import { ThreeDots } from "react-loader-spinner";
 import bookAuth from "../../assets/bookAuthor.svg";
+import AsideAuthors from "../layouts/AsideAuthors";
 
 const AuthorPage = () => {
   const { id } = useParams();
@@ -29,13 +30,13 @@ const AuthorPage = () => {
     }
     return "Undefined";
   }
-  const famousEnglishAuthors: string[] = [
-    "Harper Lee",
-    "George Orwell",
-    "F. Scott Fitzgerald",
-    "Jane Austen",
-    "J.D. Salinger",
-  ];
+  // const famousEnglishAuthors: string[] = [
+  //   "Harper Lee",
+  //   "George Orwell",
+  //   "F. Scott Fitzgerald",
+  //   "Jane Austen",
+  //   "J.D. Salinger",
+  // ];
   console.log(error);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
@@ -82,7 +83,7 @@ const AuthorPage = () => {
               ))}
             </ul>
           </div>
-          <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
+          {/* <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
             <h1 className=" font-medium text-[18px] text-gray-900 flex items-center justify-between">
               Authors
               <span className=" text-[14px] text-teal-600">
@@ -103,7 +104,8 @@ const AuthorPage = () => {
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
+          <AsideAuthors />
         </div>
         <div className=" w-full  lg:w-[68%] xl:w-[75%]">
           <div className="bg-white mb-4   rounded-md">
