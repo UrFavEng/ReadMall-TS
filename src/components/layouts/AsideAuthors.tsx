@@ -11,7 +11,7 @@ const AsideAuthors = () => {
     isLoading: loadingAllAuthors,
     isError,
   } = useGetAllAuthorQuery(1);
-
+  console.log(allAuthors);
   return (
     <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
       <h1
