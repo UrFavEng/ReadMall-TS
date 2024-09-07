@@ -53,6 +53,7 @@ export interface RecentlyAndMostBook {
   user: RecentlyAndMostUser;
   category: RecentlyAndMostCategory;
   reviews: RecentlyAndMostReview[];
+  totalReviewsRate?: number | null;
 }
 
 interface RecentlyAndMostPayload {
@@ -152,7 +153,7 @@ export interface LoginReq {
 //end login
 //start edit Profile
 export interface EditProfileForm {
-  avatarUrl: FileList;
+  avatar: FileList;
   fullname: string;
   email: string;
   phoneNum: string;
@@ -244,6 +245,24 @@ export interface CategoryByIdRES {
 // end get cat by id
 //start search Author
 interface AuthorSearch {
+  id: 1;
+  authorAvatarUrl: string;
+  authorName: string;
+  bio: null | string;
+  birthDate: string;
+  deathDate: null | string;
+  numOfBooks: number;
+}
+
+export interface SearchAuthorsRES {
+  error: boolean;
+  message: string;
+  payload: {
+    authors: AuthorSearch[];
+  };
+}
+
+interface GetAllAuthors {
   id: number;
   authorAvatarUrl: string;
   authorName: string;
@@ -252,11 +271,12 @@ interface AuthorSearch {
   deathDate: string | null;
 }
 
-export interface SearchAuthorsRES {
+export interface GetAllAuthorsRes {
   error: boolean;
   message: string;
   payload: {
-    authors: AuthorSearch[];
+    numOfPages: number;
+    authors: GetAllAuthors[];
   };
 }
 //end search Author
@@ -281,6 +301,7 @@ export interface SearchBook {
     id: number;
   };
   reviews: ReviewSearchBook[];
+  totalReviewsRate?: number | null;
 }
 
 interface ReviewSearchBook {
@@ -348,7 +369,7 @@ interface getBookById {
   inCart: boolean;
   isBoughtBook: boolean;
   isFav: boolean;
-  totalReviewsRate: null | string;
+  totalReviewsRate: null | number;
 }
 
 interface ReviewGetBook {
@@ -516,6 +537,7 @@ export interface GetAuthorByIdBook {
   category: {
     categoryName: string;
   };
+  totalReviewsRate?: number | null;
 }
 
 export interface getAuthorByIdRES {
@@ -609,6 +631,7 @@ export interface getAllFavsBook {
   uploaderId: number;
   publisherId: number;
   categoryId: number;
+  totalReviewsRate?: number | null;
 }
 
 interface getAllFavsBookOwnership {

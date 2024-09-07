@@ -68,7 +68,7 @@ const SearchAuthor = () => {
                           <AuthorCard
                             index={i}
                             key={author.id}
-                            author={author.authorName}
+                            author={author}
                           />
                         ))}
                       </div>

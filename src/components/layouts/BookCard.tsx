@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import {
   GetAuthorByIdBook,
   RecentlyAndMostBook,
@@ -25,14 +25,14 @@ const BookCard = ({ book }: BookCardProps) => {
   };
   const navigate = useNavigate();
 
-  const [value] = useState<number | null>(2);
+  // const [value] = useState<number | null>(2);
   return (
     <div
       onClick={() => (navigate(`/book/${book.id}`), scrollToTop())}
       className=" px-1 cursor-pointer gap-1 py-2 flex flex-col items-center justify-between bg-white shadow-sm hover:shadow-lg hover:scale-[1.04] hover:border-[1px] hover:border-teal-200  transition border-2 rounded-md"
     >
       <div>
-        <Rating name="read-only" value={value} readOnly />
+        <Rating name="read-only" value={book.totalReviewsRate} readOnly />
       </div>
       <div>
         <img src={book.coverUrl} alt="" className=" w-[80%] m-auto" />

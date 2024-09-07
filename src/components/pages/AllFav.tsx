@@ -10,7 +10,7 @@ const AllFav = () => {
   } = useGetAllFavsQuery();
   console.log(dataBooks);
   return (
-    <div className="grid min-h-[100vh] container mx-auto pt-[85px] px-2 gap-4  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div className="grid min--[100vh] container mx-auto pt-[85px] px-2 gap-4  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {loadingAllFav ? (
         <div className="col-span-2   mx-auto pt-[85px] px-2 md:col-span-3 lg:col-span-4 xl:col-span-5">
           {" "}
@@ -58,7 +58,7 @@ const AllFav = () => {
           )}
         </>
       )}
-      <div className="mb-4 col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5 bg-white py-2 px-2 border-b-[1px] h-[35px] border-teal-400 rounded-lg shadow-md rounded-t-none  flex items-center justify-start gap-1 text-teal-800"></div>
+      <div className="mb-4 bottom-0 col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5 bg-white py-2 px-2 border-b-[1px] h-[35px] border-teal-400 rounded-lg shadow-md rounded-t-none  flex items-center justify-start gap-1 text-teal-800"></div>
     </div>
   );
 };

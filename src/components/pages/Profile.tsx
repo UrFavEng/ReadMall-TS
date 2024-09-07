@@ -31,6 +31,15 @@ const Profile = () => {
       text: "You should login first",
     });
   };
+  const handleSuccess = () => {
+    Swal.fire({
+      position: "center",
+      icon: "success",
+      title: "Done",
+      showConfirmButton: false,
+      timer: 1500,
+    });
+  };
   const { data: dataMe, isLoading: loadingGetMe, error } = useGetMeQuery();
   const {
     handleSubmit,
@@ -60,8 +69,8 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("fullname", data.fullname);
     formData.append("email", data.email);
-    if (data.avatarUrl && data.avatarUrl.length > 0) {
-      formData.append("avatarUrl", data.avatarUrl[0]);
+    if (data.avatar && data.avatar.length > 0) {
+      formData.append("avatar", data.avatar[0]);
     }
     if (data.gender !== null && data.gender !== "") {
       formData.append("gender", data.gender);
@@ -76,6 +85,7 @@ const Profile = () => {
       .unwrap()
       .then((fulfilled) => {
         console.log(fulfilled);
+        handleSuccess();
       })
       .catch((rejected) => {
         console.error(rejected);
@@ -139,7 +149,7 @@ const Profile = () => {
                           <div className="relative">
                             <div className=" outline-none border-none">
                               <input
-                                {...register("avatarUrl")}
+                                {...register("avatar")}
                                 type="file"
                                 id="file-input"
                                 className=" hidden outline-none border-none w-0"
@@ -154,12 +164,12 @@ const Profile = () => {
                             </div>
                             <img
                               src={
-                                watch("avatarUrl")?.[0]
-                                  ? URL.createObjectURL(watch("avatarUrl")?.[0])
+                                watch("avatar")?.[0]
+                                  ? URL.createObjectURL(watch("avatar")?.[0])
                                   : dataMe?.payload.user.avatarUrl
                               }
                               alt=""
-                              className=" object-contain w-[150px] rounded-full"
+                              className=" object-contain w-[150px] aspect-square rounded-full"
                             />
                           </div>
                         </div>

@@ -7,6 +7,7 @@ import {
   DeleteFav,
   DeleteReviewRES,
   EditReview,
+  GetAllAuthorsRes,
   GetAllReviewRES,
   GetBookByIdRES,
   LoginReq,
@@ -78,6 +79,9 @@ export const apiSlice = createApi({
     }),
     SearchAuthor: builder.query<SearchAuthorsRES, string | undefined>({
       query: (name) => `/authors/getAuthorByName?name=${name}`,
+    }),
+    getAllAuthor: builder.query<GetAllAuthorsRes, number>({
+      query: (page) => `/authors?page=${page}&limit=15`,
     }),
     SearchBook: builder.query<SearchBookRES, string | undefined>({
       query: (name) => `/books/searchBooks?q=${name}`,
@@ -196,4 +200,5 @@ export const {
   useGetAllFavsQuery,
   useEditReviewMutation,
   useGetAllcrtsQuery,
+  useGetAllAuthorQuery,
 } = apiSlice;
