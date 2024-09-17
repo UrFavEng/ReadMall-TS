@@ -44,11 +44,11 @@ const ReviewCard = ({ review }: ReviewCardProps) => {
     setErrEditReview("");
     DeleteReview(review.id)
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
       })
       .catch((rejected) => {
-        console.error(rejected.status);
+        // console.error(rejected.status);
         if (rejected.status == 404) {
           setErrEditReview("U Can't Delete This Review");
         } else if (rejected.status == 403) {

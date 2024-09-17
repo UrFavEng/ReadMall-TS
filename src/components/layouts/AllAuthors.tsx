@@ -10,7 +10,7 @@ const AllAuthors = () => {
     isLoading: loadingAllAuthors,
     error,
   } = useGetAllAuthorQuery(page);
-  console.log(allAuthors);
+  // console.log(allAuthors);
   return (
     <>
       {loadingAllAuthors ? (

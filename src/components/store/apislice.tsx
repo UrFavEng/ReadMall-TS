@@ -3,6 +3,7 @@ import {
   AddFavRES,
   AddReviewRES,
   AllCategoriesRes,
+  BookResponseBooksInCatByName,
   CategoryByIdRES,
   DeleteFav,
   DeleteReviewRES,
@@ -171,6 +172,26 @@ export const apiSlice = createApi({
       query: () => `/carts/allCartBooks`,
       providesTags: ["crt"],
     }),
+    searchBookInCat: builder.mutation<
+      BookResponseBooksInCatByName,
+      { categoryId: undefined | string; title: string | undefined }
+    >({
+      query: (body) => ({
+        url: "/books/filterBooks?limit=15&page=1",
+        method: "POST",
+        body,
+      }),
+    }),
+    // searchBookInCat: builder.query<
+    //   GetBooksInCatByNameRes,
+    //   { categoryId: number | undefined | string; title: string | undefined }
+    // >({
+    //   query: (body) => ({
+    //     url: `/books/filterBooks?limit=15&page=1`,
+    //     method: "POST",
+    //     body,
+    //   }),
+    // }),
   }),
 });
 
@@ -201,4 +222,5 @@ export const {
   useEditReviewMutation,
   useGetAllcrtsQuery,
   useGetAllAuthorQuery,
+  useSearchBookInCatMutation,
 } = apiSlice;

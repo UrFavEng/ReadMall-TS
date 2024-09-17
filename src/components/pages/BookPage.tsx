@@ -72,8 +72,9 @@ const BookPage = () => {
     error,
     isError,
   } = useBookByIdQuery(id);
+  console.log(dataBook?.payload.book.coverUrl);
   const navigate = useNavigate();
-  console.log(error);
+  // console.log(error);
   const { data: dataCats, isLoading: isLoadingGetAllCats } =
     useGetAllCatsQuery();
   // const famousEnglishAuthors: string[] = [
@@ -98,7 +99,7 @@ const BookPage = () => {
     }
     return "Undefined";
   }
-  console.log(dataBook);
+  // console.log(dataBook);
   const [addReview, { isLoading: loadingAddReview }] = useAddReviewMutation();
   const [AddFav, { isLoading: loadingAddFav }] = useAddFavMutation();
   const [AddCart, { isLoading: loadingAddCart }] = useAddCartMutation();
@@ -114,19 +115,19 @@ const BookPage = () => {
   const onSubmit: SubmitHandler<ReviewREQ> = (data, event) => {
     console.log(event && event.target[0].value);
     setErrRate("");
-    console.log(data);
+    // console.log(data);
     const body = { comment: data.comment, rate: value, bookId: id };
     if (value !== null) {
       addReview(body)
         .unwrap()
-        .then((fulfilled) => {
-          console.log(fulfilled);
+        .then(() => {
+          // console.log(fulfilled);
           reset();
           setValue(null);
           handleSuccess();
         })
         .catch((rejected) => {
-          console.log(rejected);
+          // console.log(rejected);
           if (rejected?.status == 500) {
             handleError();
           } else if (rejected?.status == 404) {
@@ -146,11 +147,11 @@ const BookPage = () => {
     };
     AddFav(body)
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
       })
       .catch((rejected) => {
-        console.error(rejected);
+        // console.error(rejected);
         if (rejected?.status == 500) {
           handleError();
         } else if (rejected?.status == 404) {
@@ -163,8 +164,8 @@ const BookPage = () => {
   const handleDeleteFav = () => {
     deleteFav(id)
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
       })
       .catch((rejected) => {
         if (rejected?.status == 500) {
@@ -182,11 +183,11 @@ const BookPage = () => {
     };
     AddCart(body)
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
       })
       .catch((rejected) => {
-        console.error(rejected);
+        // console.error(rejected);
         if (rejected?.status == 500) {
           handleError();
         } else if (rejected?.status == 404) {
@@ -199,11 +200,11 @@ const BookPage = () => {
   const handleDeleteCart = () => {
     deleteCart(id)
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
       })
       .catch((rejected) => {
-        console.error(rejected);
+        // console.error(rejected);
         if (rejected?.status == 500) {
           handleError();
         } else if (rejected?.status == 404) {
@@ -512,8 +513,16 @@ const BookPage = () => {
                           </div>
                         </div>
                         <div className=" m-auto sm:m-0">
+                          {/* {console.log(dataBook?.payload.book.coverUrl)} */}
                           <img
-                            src={dataBook?.payload.book.coverUrl}
+                            src={`${
+                              dataBook?.payload.book.coverUrl.startsWith(
+                                "https"
+                              )
+                                ? dataBook?.payload.book.coverUrl
+                                : `https://readmall.onrender.com${dataBook?.payload.book.coverUrl}`
+                            }`}
+                            // src={`https://readmall.onrender.com${dataBook?.payload.book.coverUrl}`}
                             alt="cover book"
                             className="w-[220px]"
                           />

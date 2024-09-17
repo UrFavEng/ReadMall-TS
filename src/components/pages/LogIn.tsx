@@ -27,18 +27,18 @@ const LogIn = () => {
   } = useForm<LoginReq>();
   const onSubmit: SubmitHandler<LoginReq> = (data) => {
     setErr("");
-    console.log(data);
+    // console.log(data);
     signIn(data)
       .unwrap()
       .then((fulfilled) => {
-        console.log(fulfilled);
+        // console.log(fulfilled);
         localStorage.setItem("token", `${fulfilled?.payload?.token}`);
         localStorage.setItem("dataUser", `${fulfilled?.payload?.user?.id}`);
         navigate("/");
         location.reload();
       })
       .catch((rejected) => {
-        console.error(rejected);
+        // console.error(rejected);
         if (rejected?.status == 500) {
           handleError();
         } else {

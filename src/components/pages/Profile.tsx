@@ -78,17 +78,17 @@ const Profile = () => {
     if (data.phoneNum !== null && data.phoneNum !== "") {
       formData.append("phoneNum", data.phoneNum);
     }
-    for (const [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
+    // for (const [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
     EditProfile(formData)
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
         handleSuccess();
       })
       .catch((rejected) => {
-        console.error(rejected);
+        // console.error(rejected);
         if (rejected?.status == 500) {
           handleError();
         } else if (rejected?.status == 404) {

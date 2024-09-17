@@ -12,6 +12,7 @@ interface BookCardProps {
   // handleChangeBook: () => void;
 }
 const BookCard = ({ book }: BookCardProps) => {
+  console.log(book);
   useEffect(() => {
     window.addEventListener("scroll", () => {});
 
@@ -35,7 +36,15 @@ const BookCard = ({ book }: BookCardProps) => {
         <Rating name="read-only" value={book.totalReviewsRate} readOnly />
       </div>
       <div>
-        <img src={book.coverUrl} alt="" className=" w-[80%] m-auto" />
+        <img
+          src={`${
+            book.coverUrl.startsWith("https")
+              ? book.coverUrl
+              : `https://readmall.onrender.com${book.coverUrl}`
+          }`}
+          alt=""
+          className="w-[80%] m-auto"
+        />
       </div>
       <h3 className=" mt-1 text-center leading-4 text-gray-900 font-semibold capitalize">
         {book.title}

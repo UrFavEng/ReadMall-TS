@@ -1,29 +1,31 @@
 import { FaSearch } from "react-icons/fa";
 import { GiWhiteBook } from "react-icons/gi";
-import { useGetAllCatsQuery } from "../store/apislice";
+import { useGetAllAuthorQuery, useGetAllCatsQuery } from "../store/apislice";
 import authors from "../../assets/popular_user1.svg";
 import { Outlet, useNavigate } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import AsideAuthors from "../layouts/AsideAuthors";
+import { useState } from "react";
 
 const Authors = () => {
   const { data: dataCats, isLoading, isError } = useGetAllCatsQuery();
-  const famousEnglishAuthors: string[] = [
-    "Harper Lee",
-    "George Orwell",
-    "F. Scott Fitzgerald",
-    "Jane Austen",
-    "J.D. Salinger",
-  ];
+  // const famousEnglishAuthors: string[] = [
+  //   "Harper Lee",
+  //   "George Orwell",
+  //   "F. Scott Fitzgerald",
+  //   "Jane Austen",
+  //   "J.D. Salinger",
+  // ];
   const navigate = useNavigate();
-
+  const [page] = useState(0);
+  const { data: allAuthors } = useGetAllAuthorQuery(page);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" text-teal-800 font-semibold text-[28px] mt-3">
         Authors of the books
       </h1>
       <p className="text-gray-900 font-medium text-[14px] mt-[-5px]">
-        {famousEnglishAuthors.length} authors
+        {allAuthors?.payload.authors.length} authors
       </p>
       <div className="flex gap-8 lg:gap-0 flex-col-reverse lg:flex-row py-8 items-start justify-between">
         <div className="flex flex-col gap-6 w-full lg:w-[28%] xl:w-[22%] ">

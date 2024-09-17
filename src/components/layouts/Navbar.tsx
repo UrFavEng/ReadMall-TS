@@ -23,7 +23,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState<boolean>(false);
   const { data: dataMe, isLoading: loadingGetMe } = useGetMeQuery();
-  console.log(dataMe);
+  // console.log(dataMe);
   return (
     <div className=" bg-white ">
       <div className="shadow-xl  py-4 px-3 sm:px-0 fixed z-10 bg-[#ffffff93] hover:bg-white transition w-full">

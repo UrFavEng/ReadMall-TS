@@ -20,11 +20,11 @@ const PopUpEditReview = ({ setShowPopUp, review }: PopUpEditReviewProps) => {
     const body = { rate, comment };
     editReview({ body, id: review.id })
       .unwrap()
-      .then((fulfilled) => {
-        console.log(fulfilled);
+      .then(() => {
+        // console.log(fulfilled);
       })
       .catch((rejected) => {
-        console.error(rejected.status);
+        // console.error(rejected.status);
         if (rejected.status == 404) {
           Swal.fire("This's review isn't exist");
         } else if (rejected.status == 500) {

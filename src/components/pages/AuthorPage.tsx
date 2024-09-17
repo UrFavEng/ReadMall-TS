@@ -37,7 +37,7 @@ const AuthorPage = () => {
   //   "Jane Austen",
   //   "J.D. Salinger",
   // ];
-  console.log(error);
+  // console.log(error);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" font-semibold text-[18px] bg-white flex-wrap py-2 px-2 border-t-[1px] border-teal-400 rounded-lg shadow-md rounded-b-none  flex items-center justify-start gap-1 text-teal-800  mt-5">

@@ -650,3 +650,137 @@ export interface getAllFavs {
 }
 
 // end get allFavs
+export interface BookInCatByName {
+  id: number;
+  title: string;
+  subTitle: string;
+  desc: string;
+  coverUrl: string;
+  pages: number;
+  views: number;
+  lang: string;
+  releaseDate: string;
+  format: string;
+  size: number;
+  copyright: boolean;
+  toBuy: boolean;
+  bookUrl: string;
+  price: number | null;
+  createdAt: string;
+  updatedAt: string;
+  authorId: number;
+  uploaderId: number;
+  publisherId: number;
+  categoryId: number;
+  publisher: {
+    publisherName: string;
+    id: number;
+  };
+  user: {
+    fullname: string;
+    id: number;
+  };
+  category: {
+    categoryName: string;
+    id: number;
+  };
+  author: {
+    authorName: string;
+    id: number;
+  };
+  reviews: InCatByNameReview[];
+}
+
+export interface InCatByNameReview {
+  rate: number;
+  comment: string;
+  id: number;
+  user: {
+    id: number;
+    fullname: string;
+    avatarUrl: string;
+  };
+}
+
+export interface GetBooksInCatByNameRes {
+  error: boolean;
+  message: string;
+  payload: {
+    numOfPages: number;
+    books: BookInCatByName[];
+  };
+}
+
+// -------------------------
+// -------------------------
+// -------------------------
+export interface BookResponseBooksInCatByName {
+  error: boolean;
+  message: string;
+  payload: {
+    numOfPages: number;
+    books: BooksInCatByNameBook[];
+  };
+}
+
+interface BooksInCatByNameBook {
+  id: number;
+  title: string;
+  subTitle: string;
+  desc: string;
+  coverUrl: string;
+  pages: number;
+  views: number;
+  lang: string;
+  releaseDate: string;
+  format: string;
+  size: number;
+  copyright: boolean;
+  toBuy: boolean;
+  bookUrl: string;
+  price: number | null;
+  createdAt: string;
+  updatedAt: string;
+  authorId: number;
+  uploaderId: number;
+  publisherId: number;
+  categoryId: number;
+  publisher: BooksInCatByNamePublisher;
+  user: BooksInCatByNameUser;
+  category: BooksInCatByNameCategory;
+  author: BooksInCatByNameAuthor;
+  reviews: BooksInCatByNameReview[];
+}
+
+interface BooksInCatByNamePublisher {
+  publisherName: string;
+  id: number;
+}
+
+interface BooksInCatByNameUser {
+  fullname: string;
+  id: number;
+}
+
+interface BooksInCatByNameCategory {
+  categoryName: string;
+  id: number;
+}
+
+interface BooksInCatByNameAuthor {
+  authorName: string;
+  id: number;
+}
+
+interface BooksInCatByNameReview {
+  rate: number;
+  comment: string;
+  id: number;
+  user: BooksInCatByNameReviewer;
+}
+
+interface BooksInCatByNameReviewer {
+  id: number;
+  fullname: string;
+  avatarUrl: string;
+}

@@ -31,7 +31,7 @@ const BooksByCat = () => {
     error: errorGetCatById,
   } = useGetCatByIdQuery(id);
 
-  console.log(dataBooks);
+  // console.log(dataBooks);
   const { data: dataCats, isLoading: loadingCat } = useGetAllCatsQuery();
   // const famousEnglishAuthors: string[] = [
   //   "Harper Lee",
@@ -164,6 +164,7 @@ const BooksByCat = () => {
                       className="rounded-md relative  w-full h-[40px]"
                     >
                       <input
+                        minLength={4}
                         className="rounded-md pl-2 w-full h-full"
                         type="text"
                         placeholder="Search for book in this Category"

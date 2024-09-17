@@ -13,7 +13,7 @@ import { RecentlyAndMostBook } from "../../types/types.model";
 const MainSec = () => {
   const [allBooks, setAllBooks] = useState<RecentlyAndMostBook[] | []>([]);
   const navigate = useNavigate();
-  console.log(allBooks);
+  // console.log(allBooks);
 
   const [active, setActive] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
@@ -35,6 +35,7 @@ const MainSec = () => {
     page: page,
     cat: mostOrRecently,
   });
+  console.log(allBooks);
   useEffect(() => {
     setAllBooks([]);
     setPage(1);
@@ -51,14 +52,14 @@ const MainSec = () => {
       });
     }
   }, [dataBooks]);
-  console.log(dataBooks, loadingBooks);
+  // console.log(dataBooks, loadingBooks);
   const targetSecRef = useRef<HTMLParagraphElement>(null);
   const scrollToSec = () => {
     if (targetSecRef.current) {
       targetSecRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
-
+  console.log(dataBooks?.payload.numOfPages, page);
   const fetchData = useCallback(() => {
     if (dataBooks && dataBooks?.payload.numOfPages > page) {
       setPage((prevPage) => prevPage + 1);
@@ -66,7 +67,6 @@ const MainSec = () => {
   }, [page, dataBooks]);
   const hasMore =
     !isFetchingGetBooks && (dataBooks?.payload.numOfPages ?? 0) > page;
-
   return (
     <>
       {isError ? (
@@ -238,7 +238,7 @@ const MainSec = () => {
                 ) : (
                   <>
                     <InfiniteScroll
-                      dataLength={dataBooks?.payload.books.length || 0}
+                      dataLength={allBooks.length}
                       next={fetchData}
                       hasMore={hasMore}
                       loader={<h4 className="text-teal-600">Loading...</h4>}

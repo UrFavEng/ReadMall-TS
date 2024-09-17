@@ -29,6 +29,7 @@ const SearchBook = () => {
     isFetching,
     isError,
   } = useSearchBookQuery(name);
+  console.log(dataBook);
   return (
     <div className=" container m-auto px-4 pt-[71px]">
       <h1 className=" text-teal-800 font-semibold text-[28px] mt-3">

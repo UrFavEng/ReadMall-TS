@@ -19,9 +19,9 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const [err, setErr] = useState<string>("");
-  const [signUp, { isLoading, error }] = useSignUpMutation();
+  const [signUp, { isLoading }] = useSignUpMutation();
   const targetSecRef = useRef<HTMLInputElement>(null);
-  console.log(error);
+  // console.log(error);
   const {
     handleSubmit,
     register,
@@ -29,12 +29,12 @@ const SignUp = () => {
   } = useForm<SignUpReq>();
   const onSubmit: SubmitHandler<SignUpReq> = (data) => {
     setErr("");
-    console.log(data);
+    // console.log(data);
     if (data.password == targetSecRef.current?.value) {
       signUp(data)
         .unwrap()
         .then((fulfilled) => {
-          console.log(fulfilled);
+          // console.log(fulfilled);
           localStorage.setItem("token", `${fulfilled?.payload?.token}`);
           localStorage.setItem("dataUser", `${fulfilled?.payload?.user?.id}`);
           navigate("/");
@@ -46,7 +46,7 @@ const SignUp = () => {
           } else {
             setErr(rejected.data.message);
           }
-          console.error(rejected);
+          // console.error(rejected);
         });
     } else {
       setErrPass("Please ensure both passwords match");

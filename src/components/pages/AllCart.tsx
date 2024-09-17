@@ -7,7 +7,7 @@ const AllCart = () => {
     isLoading: loadingAllFav,
     error,
   } = useGetAllcrtsQuery();
-  console.log(dataBooks);
+  console.log(dataBooks?.payload.books);
   return (
     <div className="grid  container mx-auto pt-[85px] px-2 gap-4  grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
       {loadingAllFav ? (

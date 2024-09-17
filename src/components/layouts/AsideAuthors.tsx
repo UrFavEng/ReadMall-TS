@@ -11,7 +11,7 @@ const AsideAuthors = () => {
     isLoading: loadingAllAuthors,
     isError,
   } = useGetAllAuthorQuery(1);
-  console.log(allAuthors);
+  // console.log(allAuthors);
   return (
     <div className=" sticky py-4 px-3 rounded-sm shadow-lg bg-white">
       <h1
@@ -44,9 +44,9 @@ const AsideAuthors = () => {
         ) : (
           <>
             {isError ? (
-              <div className="  flex items-center justify-center text-center text-[#B10707] py-3 px-2 font-raleway font-medium text-[20px]  leading-5">
+              <li className="  flex items-center justify-center text-center text-[#B10707] py-3 px-2 font-raleway font-medium text-[20px]  leading-5">
                 Server error, <br /> try again
-              </div>
+              </li>
             ) : (
               <>
                 {" "}
